@@ -1,5 +1,5 @@
-#ifndef ALIEN_HPP
-#define ALIEN_HPP
+#ifndef BOMBERMAN_HPP
+#define BOMBERMAN_HPP
 
 #include "engine.hpp"
 #include "input_manager.hpp"
@@ -9,10 +9,10 @@
 
 using namespace engine;
 
-class Alien: public GameObject{
+class Bomberman: public GameObject{
 public:
-    Alien(std::string objectName, double positionX, double positionY, int width, int height);
-    ~Alien();
+    Bomberman(std::string objectName, double positionX, double positionY, int width, int height);
+    ~Bomberman();
     void update(double timeElapsed);
     void draw();
     void init();
@@ -20,7 +20,7 @@ public:
 protected:
     void walkInX(double & incX);
     void walkInY(double & incY, double incX);
-    virtual void specialAction() = 0;
+    void specialAction();
     Animation* animator;
     int idleAnimationNumber;
     std::string alienName;

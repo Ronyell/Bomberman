@@ -1,28 +1,24 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "alien.hpp"
-#include "alien_bilu.hpp"
-#include "alien_etemer.hpp"
-#include "alien_varginha.hpp"
 #include "input_manager.hpp"
+#include "bomberman.hpp"
 #include "engine.hpp"
 
 using namespace engine;
 
 class Player: public GameObject{
 public:
-    Player(std::pair<int, int> biluPosition, std::pair<int, int> etemerPosition,
-          std::pair<int,int> varginhaPosition);
+    Player(std::pair<int, int> player1position, std::pair<int, int> player2position);
     ~Player();
     void update(double timeElapsed);
     void draw();
-    bool isDead();
+    // bool isDead();
 
 private:
-    Alien *bilu, *varginha, *etemer;
-    int selectedAlien;
-    void idleAnimation(Alien * alien);
-    void waitAnimation(int beforeAlien);
+    Bomberman * bomberman1, * bomberman2;
+    // int selectedAlien;
+    // void idleAnimation(Bomberman * bomberman);
+    // void waitAnimation(int beforeAlien);
 };
 #endif

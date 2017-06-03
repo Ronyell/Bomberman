@@ -32,29 +32,8 @@ void GameScene::update(double timeElapsed){
     for(auto gameObject : gameObjectsList) {
         (*gameObject).update(timeElapsed);
     }
-    verifyWinOrLose();
+    // verifyWinOrLose();
 }
-
-void GameScene::verifyWinOrLose(){
-    bool allPapersEdited = true;
-    bool isDead = true;
-    for(auto gameObject : gameObjectsList){
-        if(typeid(*gameObject) == typeid(Player)){
-            isDead = ((Player *) gameObject)->isDead();
-        }
-        if(typeid(*gameObject) == typeid(Paper)){
-            if(!((Paper*)(gameObject))->isEdited()){
-                allPapersEdited = false;
-            }
-        }
-    }
-    if(isDead){
-        getSceneManager()->loadScene(1);
-    }else if(allPapersEdited){
-        getSceneManager()->loadScene(2);
-    }
-}
-
 
 void GameScene::load(){
     Audio background_music = Audio("assets/sounds/stage_one_music.wav", "MUSIC");
@@ -75,11 +54,10 @@ void GameScene::load(){
     }
 
 
-    std::pair <int, int> biluPos (10, 500);
-    std::pair <int, int> etemerPos (30, 510);
-    std::pair <int, int> varginhaPos (50, 500);
+    std::pair <int, int> player1position (10, 500);
+    std::pair <int, int> player2position (30, 510);
 
-    gameObjectsList.push_back(new Player(biluPos, etemerPos, varginhaPos));
+    gameObjectsList.push_back(new Player(player1position, player2position));
 
     gameObjectsList.push_back(new Guard("assets/sprites/seguranca_sheet.png", 900, 10, 40, 40, "down"));
     gameObjectsList.push_back(new Guard("assets/sprites/seguranca_sheet.png", 220, 100, 40, 40, "right"));

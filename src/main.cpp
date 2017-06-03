@@ -4,7 +4,6 @@
 #include "game_scene.hpp"
 #include "lose_scene.hpp"
 #include "win_scene.hpp"
-#include "alien.hpp"
 
 using namespace engine;
 
