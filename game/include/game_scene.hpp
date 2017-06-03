@@ -20,7 +20,7 @@ public:
     void draw();
     void update(double timeElapsed);
     void unload();
-    void verifyWinOrLose();
+    void loadLevelDesign();
 private:
     std::vector<GameObject*> gameObjectsList;
 };

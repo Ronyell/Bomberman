@@ -48,9 +48,9 @@ void Bomberman::update(double timeElapsed){
         }
         specialAction();
 
-        if(CollisionManager::instance.verifyCollisionWithEnemies(this)) {
-                setEnabled(false);
-        }
+        // if(CollisionManager::instance.verifyCollisionWithEnemies(this)) {
+        //         setEnabled(false);
+        // }
 
         animator->update();
 }
@@ -71,9 +71,9 @@ void Bomberman::walkInX(double & incX){
                 incX = 0;
         }
         setPositionX(getPositionX()+incX);
-        if(CollisionManager::instance.verifyCollisionWithWalls(this)) {
-                setPositionX(getPositionX()+(incX*(0-1)));
-        }
+        // if(CollisionManager::instance.verifyCollisionWithWalls(this)) {
+        //         setPositionX(getPositionX()+(incX*(0-1)));
+        // }
 }
 
 void Bomberman::walkInY(double & incY, double incX){
@@ -96,9 +96,9 @@ void Bomberman::walkInY(double & incY, double incX){
                 incY = 0;
         }
         setPositionY(getPositionY()+incY);
-        if(CollisionManager::instance.verifyCollisionWithWalls(this)) {
-                setPositionY(getPositionY()+(incY*(0-1)));
-        }
+        // if(CollisionManager::instance.verifyCollisionWithWalls(this)) {
+        //         setPositionY(getPositionY()+(incY*(0-1)));
+        // }
 }
 
 void Bomberman::specialAction(){
