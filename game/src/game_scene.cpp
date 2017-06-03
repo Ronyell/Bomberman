@@ -44,23 +44,23 @@ void GameScene::load(){
     Audio background_music = Audio("assets/sounds/stage_one_music.wav", "MUSIC");
     background_music.play(0);
 
-    std::pair <int, int> player1position (10, 500);
-    std::pair <int, int> player2position (30, 510);
+    std::pair <int, int> player1position (40, 500);
+    std::pair <int, int> player2position (0, 0);
 
     gameObjectsList.push_back(new Player(player1position, player2position));
 
-    // for(auto gameObject: gameObjectsList){
-    //     if(typeid(*gameObject) == typeid(Wall)){
-    //         CollisionManager::instance.addWall(gameObject);
-    //     }else if(typeid(*gameObject) == typeid(Guard)){
-    //         CollisionManager::instance.addEnemy(gameObject);
-    //     }else if(typeid(*gameObject) == typeid(Paper)){
-    //         CollisionManager::instance.addPaper(gameObject);
-    //     }else if(typeid(*gameObject) == typeid(DoorSystem)){
-    //         CollisionManager::instance.addDoor(((DoorSystem*)(gameObject))->getDoor());
-    //         CollisionManager::instance.addSwitch(((DoorSystem*)(gameObject))->getSwitch());
-    //     }
-    // }
+    for(auto gameObject: gameObjectsList){
+        if(typeid(*gameObject) == typeid(BlockUndestroyable)){
+            CollisionManager::instance.addBlockUndestroyable(gameObject);
+        }//else if(typeid(*gameObject) == typeid(Guard)){
+        //     CollisionManager::instance.addEnemy(gameObject);
+        // }else if(typeid(*gameObject) == typeid(Paper)){
+        //     CollisionManager::instance.addPaper(gameObject);
+        // }else if(typeid(*gameObject) == typeid(DoorSystem)){
+        //     CollisionManager::instance.addDoor(((DoorSystem*)(gameObject))->getDoor());
+        //     CollisionManager::instance.addSwitch(((DoorSystem*)(gameObject))->getSwitch());
+        // }
+    }
 
 }
 void GameScene::unload(){

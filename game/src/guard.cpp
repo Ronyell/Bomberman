@@ -45,50 +45,50 @@ void Guard::update(double timeElapsed){
 
 void Guard::walkInX(double & incX){
 
-    if(direction == "right"){
-        incX = incX * (1);
-        idleAnimationNumber = 5;
-        animator->setInterval(direction);
-    }else if(direction == "left"){
-        incX = incX * (-1);
-        idleAnimationNumber = 0;
-        animator->setInterval(direction);
-    }else {
-        incX = 0;
-    }
-    setPositionX(getPositionX()+incX);
-    if(CollisionManager::instance.verifyCollisionWithWalls(this)){
-        if(direction == "left"){
-          direction = "right";
-        }else{
-          direction = "left";
-        }
-        setPositionX(getPositionX()+(incX*(0-1)));
-    }
+    // if(direction == "right"){
+    //     incX = incX * (1);
+    //     idleAnimationNumber = 5;
+    //     animator->setInterval(direction);
+    // }else if(direction == "left"){
+    //     incX = incX * (-1);
+    //     idleAnimationNumber = 0;
+    //     animator->setInterval(direction);
+    // }else {
+    //     incX = 0;
+    // }
+    // setPositionX(getPositionX()+incX);
+    // if(CollisionManager::instance.verifyCollisionWithWalls(this)){
+    //     if(direction == "left"){
+    //       direction = "right";
+    //     }else{
+    //       direction = "left";
+    //     }
+    //     setPositionX(getPositionX()+(incX*(0-1)));
+    // }
 }
 
 void Guard::walkInY(double & incY){
-
-  if(direction == "down"){
-      incY = incY * (1);
-      idleAnimationNumber = 5;
-      animator->setInterval(direction);
-  }else if(direction == "up"){
-      incY = incY * (-1);
-      idleAnimationNumber = 0;
-      animator->setInterval(direction);
-  }else {
-      incY = 0;
-  }
-  setPositionY(getPositionY()+incY);
-  if(CollisionManager::instance.verifyCollisionWithWalls(this)){
-      if(direction == "down"){
-        direction = "up";
-      }else{
-        direction = "down";
-      }
-      setPositionY(getPositionY()+(incY*(0-1)));
-  }
+  //
+  // if(direction == "down"){
+  //     incY = incY * (1);
+  //     idleAnimationNumber = 5;
+  //     animator->setInterval(direction);
+  // }else if(direction == "up"){
+  //     incY = incY * (-1);
+  //     idleAnimationNumber = 0;
+  //     animator->setInterval(direction);
+  // }else {
+  //     incY = 0;
+  // }
+  // setPositionY(getPositionY()+incY);
+  // if(CollisionManager::instance.verifyCollisionWithWalls(this)){
+  //     if(direction == "down"){
+  //       direction = "up";
+  //     }else{
+  //       direction = "down";
+  //     }
+  //     setPositionY(getPositionY()+(incY*(0-1)));
+  // }
 }
 
 void Guard::specialAction(){

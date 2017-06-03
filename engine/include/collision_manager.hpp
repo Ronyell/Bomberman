@@ -9,11 +9,10 @@ using namespace engine;
 
 class CollisionManager{
 public:
-    bool verifyCollisionWithWalls(GameObject* g);
-    bool verifyCollisionWithEnemies(GameObject* g);
-    GameObject* verifyCollisionWithPapers(GameObject* g);
-    GameObject* verifyCollisionWithSwitches(GameObject* g);
+    bool verifyCollisionWithBlocks(GameObject* g);
+    bool verifyCollisionWithBlocks(GameObject* g1, int x, int y);
     bool verifyCollision(GameObject* g1, GameObject* g2);
+    bool verifyCollision( GameObject* g1, GameObject* g2 ,int x, int y);
     void addBlockDestroyable(GameObject* g);
     void addBlockUndestroyable(GameObject* g);
     void resetLists();

@@ -13,7 +13,7 @@ void CollisionManager::addBlockUndestroyable(GameObject* g){
     blockUndestroyableList.push_back(g);
 }
 
-    bool CollisionManager::verifyCollisionWithWalls(GameObject* g1){
+    bool CollisionManager::verifyCollisionWithBlocks(GameObject* g1){
         for(GameObject * destroyable : blockDestroyableList) {
             if(verifyCollision(destroyable, g1)){
                 return true;
@@ -21,6 +21,21 @@ void CollisionManager::addBlockUndestroyable(GameObject* g){
         }
         for(GameObject* undestroyable: blockUndestroyableList){
             if(verifyCollision(undestroyable, g1)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool CollisionManager::verifyCollisionWithBlocks(GameObject* g1, int x, int y){
+
+        for(GameObject * destroyable : blockDestroyableList) {
+            if(verifyCollision(destroyable, g1, x, y)){
+                return true;
+            }
+        }
+        for(GameObject* undestroyable: blockUndestroyableList){
+            if(verifyCollision(undestroyable, g1, x, y)){
                 return true;
             }
         }
@@ -48,6 +63,32 @@ void CollisionManager::addBlockUndestroyable(GameObject* g){
         rightB = leftB + g2->getWidth();
         topB = g2->getPositionY();
         bottomB = topB + g2->getHeight();
+
+        //If any of the sides from A are outside of B
+        if( bottomA <= topB ){ return false;}
+        if( topA >= bottomB ){ return false;}
+        if( rightA <= leftB ){ return false;}
+        if( leftA >= rightB ){ return false;}
+        //If none of the sides from A are outside B
+        return true;
+    }
+
+    bool CollisionManager::verifyCollision( GameObject* g1, GameObject* g2 ,int x, int y){
+        //The sides of the rectangles
+        int leftA, rightA, topA, bottomA;
+        int leftB, rightB, topB, bottomB;
+
+        //Calculate the sides of rect A
+        leftA = g1->getPositionX();
+        rightA = leftA + g1->getWidth();
+        topA = g1->getPositionY();
+        bottomA = topA + g1->getHeight();
+
+        //Calculate the sides of rect B
+        leftB = g2->getPositionX() + x;
+        rightB = leftB + g2->getWidth() - x;
+        topB = g2->getPositionY() + y;
+        bottomB = topB + g2->getHeight() - y;
 
         //If any of the sides from A are outside of B
         if( bottomA <= topB ){ return false;}

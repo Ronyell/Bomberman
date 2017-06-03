@@ -3,8 +3,8 @@
 using namespace engine;
 
 Player::Player(std::pair<int, int> player1position, std::pair<int, int> player2position){
-    bomberman1 = new Bomberman("assets/sprites/bomberman1.png", player1position.first, player1position.second, 40, 40);
-    bomberman2 = new Bomberman("assets/sprites/bomberman1.png", player2position.first, player2position.second, 40, 40);
+    bomberman1 = new Bomberman("assets/sprites/bomberman1.png", player1position.first, player1position.second, 32, 48);
+    bomberman2 = new Bomberman("assets/sprites/bomberman1.png", player2position.first, player2position.second, 32, 48);
 
     bomberman1->update(0);
     bomberman2->update(0);
