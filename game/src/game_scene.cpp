@@ -10,8 +10,7 @@
 #include "door_system.hpp"
 #include "audio.hpp"
 #include "block_undestroyable.hpp"
-
-
+#include "block_destroyable.hpp"
 
 #include <typeinfo>
 #include <iostream>
@@ -44,17 +43,17 @@ void GameScene::load(){
     Audio background_music = Audio("assets/sounds/stage_one_music.wav", "MUSIC");
     background_music.play(0);
 
-    std::pair <int, int> player1position (40, 500);
-    std::pair <int, int> player2position (0, 0);
+    std::pair <int, int> player1position (840, 510);
+    std::pair <int, int> player2position (40, 120);
 
     gameObjectsList.push_back(new Player(player1position, player2position));
 
     for(auto gameObject: gameObjectsList){
         if(typeid(*gameObject) == typeid(BlockUndestroyable)){
             CollisionManager::instance.addBlockUndestroyable(gameObject);
-        }//else if(typeid(*gameObject) == typeid(Guard)){
-        //     CollisionManager::instance.addEnemy(gameObject);
-        // }else if(typeid(*gameObject) == typeid(Paper)){
+        }else if(typeid(*gameObject) == typeid(BlockDestroyable)){
+            CollisionManager::instance.addBlockDestroyable(gameObject);
+        }//else if(typeid(*gameObject) == typeid(Paper)){
         //     CollisionManager::instance.addPaper(gameObject);
         // }else if(typeid(*gameObject) == typeid(DoorSystem)){
         //     CollisionManager::instance.addDoor(((DoorSystem*)(gameObject))->getDoor());
@@ -86,9 +85,8 @@ void GameScene::loadLevelDesign(){
         while(numberObject >> indexObject){
                 if(indexObject == 1){
                     gameObjectsList.push_back(new BlockUndestroyable("assets/sprites/cenary/block_undestroyable.png",x ,y ,40,40));
-                    WARN("PASSOU" << x << " " << y);
                 }else if(indexObject == 2){
-
+                    gameObjectsList.push_back(new BlockDestroyable("assets/sprites/cenary/block_destroyable.png",x ,y ,40,40));
                 }
 			    numberObject.ignore(1, ',');
 

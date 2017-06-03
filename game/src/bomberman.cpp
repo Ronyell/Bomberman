@@ -6,9 +6,9 @@ Bomberman::Bomberman(std::string objectName, double positionX, double positionY,
                                                          positionY,
                                                          width, height){
 
-        animator = new Animation(objectName, 6, 5, 0.5);
+        animator = new Animation(objectName, 6, 5, 0.4);
 
-        animator->addAction("right",0,5);
+        animator->addAction("right",0,4);
         animator->addAction("left",25,29);
         animator->addAction("up",10,14);
         animator->addAction("down",5,9);
