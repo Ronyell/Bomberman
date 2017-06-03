@@ -9,6 +9,8 @@
 #include "paper.hpp"
 #include "door_system.hpp"
 #include "audio.hpp"
+#include "block_undestroyable.hpp"
+
 
 
 #include <typeinfo>
@@ -47,8 +49,6 @@ void GameScene::load(){
 
     gameObjectsList.push_back(new Player(player1position, player2position));
 
-
-
     // for(auto gameObject: gameObjectsList){
     //     if(typeid(*gameObject) == typeid(Wall)){
     //         CollisionManager::instance.addWall(gameObject);
@@ -69,7 +69,7 @@ void GameScene::unload(){
 }
 
 void GameScene::loadLevelDesign(){
-	// double x, y, width, height;
+	int x = 0, y = 0;
 
 	std::fstream levelDesign("assets/sprites/cenary/map");
 	if(not levelDesign.is_open()){
@@ -80,19 +80,23 @@ void GameScene::loadLevelDesign(){
     int indexObject;
 	while(std::getline(levelDesign, line)){
         std::stringstream numberObject(line);
-        numberObject.ignore(1, ',');
 
         // WARN(numberObject.str());
 
         while(numberObject >> indexObject){
                 if(indexObject == 1){
-
+                    gameObjectsList.push_back(new BlockUndestroyable("assets/sprites/cenary/block_undestroyable.png",x ,y ,40,40));
+                    WARN("PASSOU" << x << " " << y);
                 }else if(indexObject == 2){
 
                 }
 			    numberObject.ignore(1, ',');
+
+                x+=40;
 		}
 
+        y+=40;
+        x=0;
  	}
 
 	levelDesign.close();

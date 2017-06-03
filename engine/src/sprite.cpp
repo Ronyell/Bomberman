@@ -6,6 +6,7 @@ using namespace engine;
 
     Sprite::Sprite(std::string newDirectory){
         directory = newDirectory;
+        init();
     }
 
     void Sprite::init(){
@@ -45,6 +46,5 @@ using namespace engine;
 
         // Rendering in screen
         renderQuad = {axis.first, axis.second, clipRect.w, clipRect.h };
-
         SDL_RenderCopy(WindowManager::getGameCanvas(), texture, &clipRect, &renderQuad);
     }
