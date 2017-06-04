@@ -13,6 +13,13 @@ void CollisionManager::addBlockUndestroyable(GameObject* g){
     blockUndestroyableList.push_back(g);
 }
 
+void CollisionManager::addBomb(std::string bombName, GameObject* g){
+    bombList[bombName] = g;
+}
+
+void CollisionManager::removeBomb(std::string bombName){
+    bombList.erase(bombName);
+}
     bool CollisionManager::verifyCollisionWithBlocks(GameObject* g1){
         for(GameObject * destroyable : blockDestroyableList) {
             if(verifyCollision(destroyable, g1)){
@@ -21,6 +28,11 @@ void CollisionManager::addBlockUndestroyable(GameObject* g){
         }
         for(GameObject* undestroyable: blockUndestroyableList){
             if(verifyCollision(undestroyable, g1)){
+                return true;
+            }
+        }
+        for(std::pair<std::string, GameObject *> bomb: bombList){
+            if(verifyCollision(bomb.second, g1)){
                 return true;
             }
         }
@@ -36,6 +48,12 @@ void CollisionManager::addBlockUndestroyable(GameObject* g){
         }
         for(GameObject* undestroyable: blockUndestroyableList){
             if(verifyCollision(undestroyable, g1, x, y)){
+                return true;
+            }
+        }
+
+        for(std::pair<std::string, GameObject *> bomb: bombList){
+            if(verifyCollision(bomb.second, g1)){
                 return true;
             }
         }

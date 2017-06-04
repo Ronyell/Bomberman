@@ -15,11 +15,15 @@ public:
     bool verifyCollision( GameObject* g1, GameObject* g2 ,int x, int y);
     void addBlockDestroyable(GameObject* g);
     void addBlockUndestroyable(GameObject* g);
+    void addBomb(std::string bombName, GameObject* g);
+    void removeBomb(std::string bombName);
     void resetLists();
     static CollisionManager instance;
 private:
     std::vector<GameObject*> blockDestroyableList;
     std::vector<GameObject*> blockUndestroyableList;
+    std::unordered_map<std::string, GameObject*> bombList;
+
 };
 
 #endif

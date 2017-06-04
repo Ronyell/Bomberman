@@ -1,4 +1,5 @@
 #include "bomberman.hpp"
+#include "bomb.hpp"
 
 Bomberman::Bomberman(std::string objectName, double positionX, double positionY,
                      int width, int height) : GameObject(objectName,
@@ -47,8 +48,6 @@ void Bomberman::update(double timeElapsed){
                 }
         }
         specialAction();
-
-
         animator->update();
 }
 
@@ -98,14 +97,12 @@ void Bomberman::walkInY(double & incY, double incX){
         }
 }
 
-void Bomberman::specialAction(){
+bool Bomberman::specialAction(){
         if(InputManager::instance.isKeyPressed(InputManager::KEY_PRESS_SPACE)) {
-                if(idleAnimationNumber == 5) {
-                        animator->setInterval("special_right");
-                }else{
-                        animator->setInterval("special_left");
-                }
+                return true;
         }
+
+        return false;
 }
 
 void Bomberman::draw(){

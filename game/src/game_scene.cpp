@@ -34,6 +34,9 @@ void GameScene::draw(){
 void GameScene::update(double timeElapsed){
     for(auto gameObject : gameObjectsList) {
         (*gameObject).update(timeElapsed);
+        // if(typeid(*gameObject) == typeid(Player)){
+        //     if(((Player *) (gameObject))-> getBomberman1()->specialAction())
+        // }
     }
     // verifyWinOrLose();
 }

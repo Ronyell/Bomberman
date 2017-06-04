@@ -17,6 +17,7 @@ public:
 
 private:
     Bomberman * bomberman1, * bomberman2;
+    Bomb * bomb1;
     // int selectedAlien;
     // void idleAnimation(Bomberman * bomberman);
     // void waitAnimation(int beforeAlien);
