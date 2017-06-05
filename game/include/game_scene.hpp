@@ -7,6 +7,8 @@
 #include "wall.hpp"
 #include "game_object.hpp"
 #include "guard.hpp"
+#include "block_undestroyable.hpp"
+#include "block_destroyable.hpp"
 
 #include <vector>
 
@@ -21,8 +23,13 @@ public:
     void update(double timeElapsed);
     void unload();
     void loadLevelDesign();
+    void excludeBlockDestroyable();
 private:
-    std::vector<GameObject*> gameObjectsList;
+    std::unordered_map<std::string, GameObject*> blockUndestroyableList;
+    std::unordered_map<std::string, GameObject*> blockDestroyableList;
+    // std::unordered_map<std::string, GameObject*> gameObjectsList;
+    Player * player;
+
 };
 
 #endif

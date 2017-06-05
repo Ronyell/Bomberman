@@ -34,16 +34,10 @@ void Player::update(double timeElapsed){
                         CollisionManager::instance.removeBomb("Bomb1");
                 }
 
-                if(!bomb1->getActiveBomb()) {
-                        //delete(bomb1);
-                        CollisionManager::instance.removeBomb("Bomb1");
-                        bomb1 = NULL;
-                }
-        }
 
+        }
         bomberman1->update(timeElapsed);
         bomberman2->update(timeElapsed);
-
 }
 
 void Player::draw(){
@@ -53,4 +47,28 @@ void Player::draw(){
         }
         bomberman1->draw();
         bomberman2->draw();
+}
+
+void Player::verifyBlocksDestroyable(std::unordered_map<std::string, GameObject*> * blockDestroyableList){
+        if (bomb1!=NULL) {
+                if(!bomb1->getActiveBomb()) {
+                        //delete(bomb1);
+                        double auxWidth = bomb1->getWidth();
+                        double auxX = bomb1->getPositionX();
+                        bomb1->setWidth(auxWidth+bomb1->getRange()*40);
+                        CollisionManager::instance.verifyBlocksDestroyable(bomb1, blockDestroyableList);
+                        bomb1->setPositionX(auxX-bomb1->getRange()*40);
+                        CollisionManager::instance.verifyBlocksDestroyable(bomb1, blockDestroyableList);
+                        bomb1->setWidth(auxWidth);
+                        bomb1->setPositionX(auxX);
+                        double auxHeight = bomb1->getHeight();
+                        double auxY = bomb1->getPositionY();
+                        bomb1->setHeight(auxHeight+bomb1->getRange()*40);
+                        CollisionManager::instance.verifyBlocksDestroyable(bomb1, blockDestroyableList);
+                        bomb1->setPositionY(auxY-bomb1->getRange()*40);
+                        CollisionManager::instance.verifyBlocksDestroyable(bomb1, blockDestroyableList);
+                        CollisionManager::instance.removeBomb("Bomb1");
+                        bomb1 = NULL;
+                }
+        }
 }

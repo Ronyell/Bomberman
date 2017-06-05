@@ -5,29 +5,61 @@ using namespace engine;
 
 CollisionManager CollisionManager::instance;
 
-void CollisionManager::addBlockDestroyable(GameObject* g){
-    blockDestroyableList.push_back(g);
+void CollisionManager::addBlockDestroyable(std::string blockName, GameObject* g){
+    blockDestroyableList[blockName] = g;
 }
 
-void CollisionManager::addBlockUndestroyable(GameObject* g){
-    blockUndestroyableList.push_back(g);
+void CollisionManager::removeBlockDestroyable(std::string blockName){
+    blockDestroyableList.erase(blockName);
+}
+
+void CollisionManager::addBlockUndestroyable(std::string blockName, GameObject* g){
+    blockUndestroyableList[blockName] = g;
 }
 
 void CollisionManager::addBomb(std::string bombName, GameObject* g){
     bombList[bombName] = g;
 }
 
+void CollisionManager::verifyBlocksDestroyable(GameObject* g1){
+    std::vector<std::string> names;
+    for(std::pair<std::string, GameObject *>  destroyable : blockDestroyableList) {
+        if(verifyCollision(destroyable.second, g1)){
+            names.push_back(destroyable.first);
+        }
+    }
+
+    for(std::string name: names){
+        blockDestroyableList.erase(name);
+    }
+
+}
+
+void CollisionManager::verifyBlocksDestroyable(GameObject* g1, std::unordered_map<std::string, GameObject*> * blocksDestroyableList){
+    std::vector<std::string> names;
+    for(std::pair<std::string, GameObject *>  destroyable : *blocksDestroyableList) {
+        if(verifyCollision(destroyable.second, g1)){
+            destroyable.second->setEnabled(false);
+            names.push_back(destroyable.first);
+        }
+    }
+
+    for(std::string name: names){
+        blockDestroyableList.erase(name);
+    }
+}
+
 void CollisionManager::removeBomb(std::string bombName){
     bombList.erase(bombName);
 }
     bool CollisionManager::verifyCollisionWithBlocks(GameObject* g1){
-        for(GameObject * destroyable : blockDestroyableList) {
-            if(verifyCollision(destroyable, g1)){
+        for(std::pair<std::string, GameObject *>  destroyable : blockDestroyableList) {
+            if(verifyCollision(destroyable.second, g1)){
                 return true;
             }
         }
-        for(GameObject* undestroyable: blockUndestroyableList){
-            if(verifyCollision(undestroyable, g1)){
+        for(std::pair<std::string, GameObject *> undestroyable: blockUndestroyableList){
+            if(verifyCollision(undestroyable.second, g1)){
                 return true;
             }
         }
@@ -41,13 +73,13 @@ void CollisionManager::removeBomb(std::string bombName){
 
     bool CollisionManager::verifyCollisionWithBlocks(GameObject* g1, int x, int y){
 
-        for(GameObject * destroyable : blockDestroyableList) {
-            if(verifyCollision(destroyable, g1, x, y)){
+        for(std::pair<std::string, GameObject *> destroyable : blockDestroyableList) {
+            if(verifyCollision(destroyable.second, g1, x, y)){
                 return true;
             }
         }
-        for(GameObject* undestroyable: blockUndestroyableList){
-            if(verifyCollision(undestroyable, g1, x, y)){
+        for(std::pair<std::string, GameObject *> undestroyable: blockUndestroyableList){
+            if(verifyCollision(undestroyable.second, g1, x, y)){
                 return true;
             }
         }

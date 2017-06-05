@@ -1,5 +1,5 @@
-#ifndef BOMB_HPP
-#define BOMB_HPP
+#ifndef EXPLOSION_HPP
+#define EXPLOSION_HPP
 
 #include "engine.hpp"
 #include "input_manager.hpp"
@@ -9,22 +9,22 @@
 
 using namespace engine;
 
-class Bomb: public GameObject{
+class Explosion: public GameObject{
 public:
-    Bomb(std::string objectName, double positionX, double positionY, int width, int height);
-    ~Bomb();
+    Explosion(std::string objectName, double positionX, double positionY, int width, int height);
+    ~Explosion();
     void update(double timeElapsed);
     void draw();
     void init();
     Animation * getAnimation();
-    bool getActiveBomb();
-    void setActiveBomb(bool isActive);
+    bool getActiveExplosion();
+    void setActiveExplosion(bool isActive);
     int getRange();
     void setRange(int rangeBomb);
 protected:
     void specialAction();
     Animation* animator;
-    bool activeBomb;
+    bool activeExplosion;
     double startTime;
     double timeElapsedActive;
     double stepTime;

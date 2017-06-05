@@ -13,16 +13,23 @@ public:
     bool verifyCollisionWithBlocks(GameObject* g1, int x, int y);
     bool verifyCollision(GameObject* g1, GameObject* g2);
     bool verifyCollision( GameObject* g1, GameObject* g2 ,int x, int y);
-    void addBlockDestroyable(GameObject* g);
-    void addBlockUndestroyable(GameObject* g);
+    void addBlockDestroyable(std::string blockName, GameObject* g);
+    void removeBlockDestroyable(std::string blockName);
+    void addBlockUndestroyable(std::string blockName, GameObject* g);
     void addBomb(std::string bombName, GameObject* g);
     void removeBomb(std::string bombName);
+    void verifyBlocksDestroyable(GameObject* g1);
+    void verifyBlocksDestroyable(GameObject* g1, std::unordered_map<std::string, GameObject*> * blocksDestroyableList);
+
+    // void removeExplosion(std::string explosionName);
+    // void addExplosion(std::string explosionName, GameObject* g);
     void resetLists();
     static CollisionManager instance;
 private:
-    std::vector<GameObject*> blockDestroyableList;
-    std::vector<GameObject*> blockUndestroyableList;
+    std::unordered_map<std::string, GameObject*> blockDestroyableList;
+    std::unordered_map<std::string, GameObject*> blockUndestroyableList;
     std::unordered_map<std::string, GameObject*> bombList;
+    // std::unordered_map<std::string, GameObject*> explosionList;
 
 };
 

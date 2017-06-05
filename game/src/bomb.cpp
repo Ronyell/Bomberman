@@ -7,12 +7,14 @@ Bomb::Bomb(std::string objectName, double positionX, double positionY,
                                                width, height){
 
 
-        animator = new Animation(objectName, 1, 9, 2.0);
+        animator = new Animation(objectName, 1, 9, 0.5);
 
-        animator->addAction("explode",0,8);
+        animator->addAction("planted",0,2);
+        animator->addAction("explode",3,8);
         startTime = SDL_GetTicks();
         stepTime = startTime;
         activeBomb = false;
+        range = 1;
 }
 
 Bomb::~Bomb(){
@@ -25,7 +27,9 @@ void Bomb::update(double timeElapsed){
 
         timeElapsedActive = (SDL_GetTicks() - stepTime) / 1000.0f;
 
-        if(timeElapsedActive >= 1.5){
+        if(timeElapsedActive >= 2.0 && timeElapsedActive < 2.5){
+            animator->setInterval("explode");
+        }else if(timeElapsedActive >= 2.5){
             activeBomb = false;
         }
 
@@ -34,7 +38,7 @@ void Bomb::update(double timeElapsed){
 
 void Bomb::specialAction(){
         if(InputManager::instance.isKeyPressed(InputManager::KEY_PRESS_SPACE) && !activeBomb) {
-                animator->setInterval("explode");
+                animator->setInterval("planted");
                 stepTime = startTime;
                 activeBomb = true;
         }
@@ -55,4 +59,11 @@ bool Bomb::getActiveBomb(){
 
 void Bomb::setActiveBomb(bool isActive){
     activeBomb = isActive;
+}
+
+int Bomb::getRange(){
+    return range;
+}
+void Bomb::setRange(int rangeBomb){
+    range = rangeBomb;
 }

@@ -4,6 +4,7 @@
 #include "input_manager.hpp"
 #include "bomberman.hpp"
 #include "engine.hpp"
+#include "block_destroyable.hpp"
 
 using namespace engine;
 
@@ -13,6 +14,10 @@ public:
     ~Player();
     void update(double timeElapsed);
     void draw();
+    void verifyBlocksDestroyable(std::unordered_map<std::string, GameObject*> * blockDestroyableList);
+    // void setBomb(Bomb * newBomb);
+    // Bomb * getBomb();
+
     // bool isDead();
 
 private:
