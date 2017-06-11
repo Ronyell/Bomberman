@@ -20,7 +20,7 @@ void Player::update(double timeElapsed){
                         int xBomb = (((int)bomberman1->getPositionX() % 40) <= 20) ? bomberman1->getPositionX() - (int)bomberman1->getPositionX() % 40 : bomberman1->getPositionX() + 40 -(int)bomberman1->getPositionX() % 40;
                         int yBomb = (((int)bomberman1->getPositionY() % 40) <= 8) ? bomberman1->getPositionY() - (int)bomberman1->getPositionY() % 40 : bomberman1->getPositionY() + 40 -(int)bomberman1->getPositionY() % 40;
 
-                        bomb1 = new Bomb("assets/sprites/bomb2.png",xBomb,yBomb,32,32);
+                        bomb1 = new Bomb("assets/sprites/bomb2.png",xBomb,yBomb,40,40);
 
                 }
         }

@@ -46,9 +46,22 @@ bool CollisionManager::verifyWay(GameObject* g1, GameObject* g2){
             }
         }else{
             if((int)g1->getPositionY() > (int)g2->getPositionY()){
-
+                for(int i = g2->getPositionY(); i <= g1-> getPositionY(); i += g1->getHeight()){
+                    std::unordered_map<std::string, GameObject *>::iterator search;
+                    search = blockUndestroyableList.find("block_undestroyable" + std::to_string((int)g1->getPositionX()) + " " + std::to_string(i));
+                    if(search != blockUndestroyableList.end()){
+                        isWay = verifyCollision(search->second, g2);
+                        WARN(isWay);
+                    }
+                }
             }else{
-
+                for(int i = g2->getPositionY() + g1->getHeight(); i >= g1-> getPositionY(); i -= g1->getHeight()){
+                    std::unordered_map<std::string, GameObject *>::iterator search;
+                    search = blockUndestroyableList.find("block_undestroyable" + std::to_string((int)g1->getPositionX()) + " " + std::to_string(i));
+                    if(search != blockUndestroyableList.end()){
+                        isWay = verifyCollision(search->second, g2);
+                    }
+                }
             }
         }
         return isWay;
