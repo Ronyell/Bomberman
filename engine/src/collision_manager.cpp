@@ -21,23 +21,76 @@ void CollisionManager::addBomb(std::string bombName, GameObject* g){
         bombList[bombName] = g;
 }
 
-void CollisionManager::verifyBlocksDestroyable(GameObject* g1){
-        std::vector<std::string> names;
-        for(std::pair<std::string, GameObject *>  destroyable : blockDestroyableList) {
-                if(verifyCollision(destroyable.second, g1)) {
-                        names.push_back(destroyable.first);
+bool CollisionManager::verifyWay(GameObject* g1, GameObject* g2){
+        bool isWay = false;
+
+
+        if ((int)g1->getPositionY() == (int)g2->getPositionY()){
+            if((int)g1->getPositionX() > (int)g2->getPositionX()){
+                for(int i = g2->getPositionX(); i <= g1-> getPositionX(); i += g1->getWidth()){
+                    std::unordered_map<std::string, GameObject *>::iterator search;
+                    search = blockUndestroyableList.find("block_undestroyable" + std::to_string(i) + " " + std::to_string((int)g1->getPositionY()));
+                    if(search != blockUndestroyableList.end()){
+                        isWay = verifyCollision(search->second, g2);
+                        WARN(isWay);
+                    }
                 }
-        }
+            }else{
+                for(int i = g2->getPositionX() + g1->getWidth(); i >= g1-> getPositionX(); i -= g1->getWidth()){
+                    std::unordered_map<std::string, GameObject *>::iterator search;
+                    search = blockUndestroyableList.find("block_undestroyable" + std::to_string(i) + " " + std::to_string((int)g1->getPositionY()));
+                    if(search != blockUndestroyableList.end()){
+                        isWay = verifyCollision(search->second, g2);
+                    }
+                }
+            }
+        }else{
+            if((int)g1->getPositionY() > (int)g2->getPositionY()){
 
-        for(std::string name : names) {
-                blockDestroyableList.erase(name);
-        }
+            }else{
 
+            }
+        }
+        return isWay;
 }
+
+
+// void CollisionManager::verifyBlocksDestroyable(GameObject* g1){
+//         std::vector<std::string> names;
+//         bool isWay = false;
+//
+//         for(std::pair<std::string, GameObject *>  destroyable : blockDestroyableList) {
+//                 if(verifyCollision(destroyable.second, g1)) {
+//                     isWay = false;
+//                     for(std::pair<std::string, GameObject *>  undestroyable : blockUndestroyableList)
+//                         if(undestroyable->getPositionX() == destroyable->getPositionX()){
+//                             int mUndestroyable = abs(undestroyable->getPositionY() - g1->getPositionY());
+//                             int mDestroyable = abs(destroyable->getPositionY() - g1->getPositionY());
+//
+//                             if(mUndestroyable < mDestroyable){
+//
+//                             }
+//                         }else if(undestroyable->getPositionY() == destroyable->getPositionY()){
+//                             int mUndestroyable = abs(undestroyable->getPositionX() - g1->getPositionX());
+//                             int mDestroyable = abs(destroyable->getPositionX() - g1->getPositionX());
+//
+//                         }
+//                 }
+//                 if(isWay){
+//                     names.push_back(destroyable.first);
+//                 }
+//         }
+//
+//         for(std::string name : names) {
+//                 blockDestroyableList.erase(name);
+//         }
+//
+// }
 
 void CollisionManager::verifyBlocksDestroyable(GameObject* g1, std::unordered_map<std::string, GameObject*> * listBlocks, int xPlus, int yPlus){
         std::string name;
         bool collided = false;
+        bool isWay = false;
         int x = 0, y = 0;
 
         for(std::pair<std::string, GameObject *>  destroyable : *listBlocks) {
@@ -70,7 +123,11 @@ void CollisionManager::verifyBlocksDestroyable(GameObject* g1, std::unordered_ma
                 }
         }
 
-        if(collided) {
+        if(collided){
+            isWay = verifyWay((*listBlocks)[name], g1);
+        }
+
+        if(collided && !isWay) {
                 (*listBlocks)[name]->setEnabled(false);
                 blockDestroyableList.erase(name);
         }

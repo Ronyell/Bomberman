@@ -13,6 +13,7 @@ public:
     bool verifyCollisionWithBlocks(GameObject* g1, int x, int y);
     bool verifyCollision(GameObject* g1, GameObject* g2);
     bool verifyCollision( GameObject* g1, GameObject* g2 ,int x, int y);
+    bool verifyWay(GameObject* g1, GameObject* g2);
     void addBlockDestroyable(std::string blockName, GameObject* g);
     void removeBlockDestroyable(std::string blockName);
     void addBlockUndestroyable(std::string blockName, GameObject* g);
