@@ -14,7 +14,7 @@ Bomb::Bomb(std::string objectName, double positionX, double positionY,
         startTime = SDL_GetTicks();
         stepTime = startTime;
         activeBomb = false;
-        range = 1;
+        range = 2;
 }
 
 Bomb::~Bomb(){

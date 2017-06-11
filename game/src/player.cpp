@@ -56,17 +56,17 @@ void Player::verifyBlocksDestroyable(std::unordered_map<std::string, GameObject*
                         double auxWidth = bomb1->getWidth();
                         double auxX = bomb1->getPositionX();
                         bomb1->setWidth(auxWidth+bomb1->getRange()*40);
-                        CollisionManager::instance.verifyBlocksDestroyable(bomb1, blockDestroyableList);
+                        CollisionManager::instance.verifyBlocksDestroyable(bomb1, blockDestroyableList,0, 0);
                         bomb1->setPositionX(auxX-bomb1->getRange()*40);
-                        CollisionManager::instance.verifyBlocksDestroyable(bomb1, blockDestroyableList);
+                        CollisionManager::instance.verifyBlocksDestroyable(bomb1, blockDestroyableList, bomb1->getRange()*40 , 0);
                         bomb1->setWidth(auxWidth);
                         bomb1->setPositionX(auxX);
                         double auxHeight = bomb1->getHeight();
                         double auxY = bomb1->getPositionY();
                         bomb1->setHeight(auxHeight+bomb1->getRange()*40);
-                        CollisionManager::instance.verifyBlocksDestroyable(bomb1, blockDestroyableList);
+                        CollisionManager::instance.verifyBlocksDestroyable(bomb1, blockDestroyableList, 0, 0);
                         bomb1->setPositionY(auxY-bomb1->getRange()*40);
-                        CollisionManager::instance.verifyBlocksDestroyable(bomb1, blockDestroyableList);
+                        CollisionManager::instance.verifyBlocksDestroyable(bomb1, blockDestroyableList, 0, bomb1->getRange()*40);
                         CollisionManager::instance.removeBomb("Bomb1");
                         bomb1 = NULL;
                 }

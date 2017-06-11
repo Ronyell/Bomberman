@@ -2,7 +2,7 @@
 #define BLOCK_DESTROYABLE_HPP
 
 #include "engine.hpp"
-#include "sprite.hpp"
+#include "animation.hpp"
 #include "game_object.hpp"
 
 using namespace engine;
@@ -14,8 +14,15 @@ public:
     void update(double timeElapsed);
     void draw();
     void init();
-    Sprite * getSprite();
+    void specialAction();
+    bool getIsDestroyed();
+    void setIsDestroyed(bool destroyed);
+    Animation * getAnimation();
 private:
-    Sprite* sprite;
+    Animation* animation;
+    bool isDestroyed;
+    double startTime;
+    double timeElapsedActive;
+    double stepTime;
 };
 #endif

@@ -56,6 +56,7 @@ void GameScene::load(){
     std::pair <int, int> player2position (40, 120);
 
     player = (new Player(player1position, player2position));
+
     for(std::pair<std::string, GameObject *>  destroyable : blockDestroyableList) {
         CollisionManager::instance.addBlockDestroyable(destroyable.first, destroyable.second);
     }
@@ -63,18 +64,6 @@ void GameScene::load(){
     for(std::pair<std::string, GameObject *>  undestroyable : blockUndestroyableList) {
         CollisionManager::instance.addBlockUndestroyable(undestroyable.first, undestroyable.second);
     }
-    // for(std::pair<std::string, GameObject *> gameObject: gameObjectsList){
-    //     if(typeid(*gameObject.second) == typeid(BlockUndestroyable)){
-    //         CollisionManager::instance.addBlockUndestroyable(gameObject.first, gameObject.second);
-    //     }else if(typeid(*gameObject.second) == typeid(BlockDestroyable)){
-    //         CollisionManager::instance.addBlockDestroyable(gameObject.first, gameObject.second);
-    //     }//else if(typeid(*gameObject) == typeid(Paper)){
-    //     //     CollisionManager::instance.addPaper(gameObject);
-    //     // }else if(typeid(*gameObject) == typeid(DoorSystem)){
-    //     //     CollisionManager::instance.addDoor(((DoorSystem*)(gameObject))->getDoor());
-    //     //     CollisionManager::instance.addSwitch(((DoorSystem*)(gameObject))->getSwitch());
-    //     // }
-    // }
 
 }
 
@@ -83,7 +72,7 @@ void GameScene::excludeBlockDestroyable(){
     std::vector<std::string> names;
 
     for(std::pair<std::string, GameObject *> gameObject : blockDestroyableList) {
-        if(!gameObject.second->isEnabled()){
+        if(((BlockDestroyable*)(gameObject.second))->getIsDestroyed()){
             names.push_back(gameObject.first);
         }
     }
