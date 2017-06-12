@@ -18,6 +18,10 @@ public:
     void draw();
     void init();
     bool specialAction();
+    void setQuantityBomb(int numBomb);
+    int getQuantityBomb();
+    void setUnusedBomb(int numBomb);
+    int getUnusedBomb();
     Animation * getAnimation();
 protected:
     void walkInX(double & incX);
@@ -26,6 +30,8 @@ protected:
     int idleAnimationNumber;
     std::string alienName;
     bool blockMovement;
+    int quantityBomb;
+    int unusedBomb;
 };
 
 #endif

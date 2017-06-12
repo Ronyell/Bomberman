@@ -17,14 +17,14 @@ InputManager InputManager::instance;
                     keyAction = event.key.keysym.sym;
                     if(!event.key.repeat){
                         keyActive[keyAction] = true;
-                        INFO("PUSH");
+                        // WARN("PUSH");
                     }
                 break;
                 case SDL_KEYUP:
                     previousAction = event.key.keysym.sym;
                     keyPrevious = keyActive;
                     keyActive[previousAction] = false;
-                    INFO("RELEASE");
+                    // WARN("RELEASE");
                 break;
             }
         }
@@ -40,7 +40,11 @@ InputManager InputManager::instance;
     }
 
     bool InputManager::isKeyReleased(int iKeyCode){
-        return (!keyActive[iKeyCode] && keyPrevious[iKeyCode]);
+        if(!keyActive[iKeyCode] && keyPrevious[iKeyCode]){
+            keyPrevious[iKeyCode] = false;
+            return true;
+        }
+        return false;
     }
 
     bool InputManager::isKeyTriggered(int iKeyCode){

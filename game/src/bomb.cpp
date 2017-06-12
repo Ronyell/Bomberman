@@ -11,9 +11,10 @@ Bomb::Bomb(std::string objectName, double positionX, double positionY,
 
         animator->addAction("planted",0,2);
         animator->addAction("explode",3,8);
+        animator->setInterval("planted");
         startTime = SDL_GetTicks();
         stepTime = startTime;
-        activeBomb = false;
+        activeBomb = true;
         range = 4;
 }
 

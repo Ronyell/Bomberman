@@ -20,10 +20,7 @@ public:
     void addBomb(std::string bombName, GameObject* g);
     void removeBomb(std::string bombName);
     void verifyBlocksDestroyable(GameObject* g1);
-    void verifyBlocksDestroyable(GameObject* g1, std::unordered_map<std::string, GameObject*> * listBlocks, int xPlus, int yPlus);
-
-    // void removeExplosion(std::string explosionName);
-    // void addExplosion(std::string explosionName, GameObject* g);
+    void verifyBlocksDestroyable(GameObject* g1, std::unordered_map<std::string, GameObject*> * listBlocks, int range);
     void resetLists();
     static CollisionManager instance;
 private:

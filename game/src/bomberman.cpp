@@ -113,3 +113,19 @@ void Bomberman::draw(){
 Animation * Bomberman::getAnimation(){
         return animator;
 }
+
+void Bomberman::setQuantityBomb(int numBomb){
+    quantityBomb = numBomb;
+}
+
+int Bomberman::getQuantityBomb(){
+    return quantityBomb;
+}
+
+void Bomberman::setUnusedBomb(int numBomb){
+    unusedBomb = numBomb;
+}
+
+int Bomberman::getUnusedBomb(){
+    return unusedBomb;
+}

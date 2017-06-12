@@ -28,6 +28,7 @@ namespace engine{
         bool isKeyTriggered(int iKeyCode);
         bool isKeyPressed(int iKeyCode);
         bool isKeyReleased(int iKeyCode);
+        bool isSpace();
 
     private:
         InputManager(): quitRequest(false){}
