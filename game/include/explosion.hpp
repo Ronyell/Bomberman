@@ -23,11 +23,8 @@ public:
     void setRange(int rangeBomb);
 protected:
     void specialAction();
-    Animation* animator;
+    Animation *animatorRight, *animatorLeft, *animatorUp, *animatorDown, *animatorCenter;
     bool activeExplosion;
-    double startTime;
-    double timeElapsedActive;
-    double stepTime;
     int range;
 };
 

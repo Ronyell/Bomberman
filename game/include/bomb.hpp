@@ -6,6 +6,8 @@
 #include "animation.hpp"
 #include "game_object.hpp"
 #include "collision_manager.hpp"
+#include "explosion.hpp"
+
 
 using namespace engine;
 
@@ -24,6 +26,7 @@ public:
 protected:
     void specialAction();
     Animation* animator;
+    Explosion* explosion;
     bool activeBomb;
     double startTime;
     double timeElapsedActive;

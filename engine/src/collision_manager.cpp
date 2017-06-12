@@ -66,38 +66,6 @@ bool CollisionManager::verifyWay(GameObject* g1, GameObject* g2){
 }
 
 
-// void CollisionManager::verifyBlocksDestroyable(GameObject* g1){
-//         std::vector<std::string> names;
-//         bool isWay = false;
-//
-//         for(std::pair<std::string, GameObject *>  destroyable : blockDestroyableList) {
-//                 if(verifyCollision(destroyable.second, g1)) {
-//                     isWay = false;
-//                     for(std::pair<std::string, GameObject *>  undestroyable : blockUndestroyableList)
-//                         if(undestroyable->getPositionX() == destroyable->getPositionX()){
-//                             int mUndestroyable = abs(undestroyable->getPositionY() - g1->getPositionY());
-//                             int mDestroyable = abs(destroyable->getPositionY() - g1->getPositionY());
-//
-//                             if(mUndestroyable < mDestroyable){
-//
-//                             }
-//                         }else if(undestroyable->getPositionY() == destroyable->getPositionY()){
-//                             int mUndestroyable = abs(undestroyable->getPositionX() - g1->getPositionX());
-//                             int mDestroyable = abs(destroyable->getPositionX() - g1->getPositionX());
-//
-//                         }
-//                 }
-//                 if(isWay){
-//                     names.push_back(destroyable.first);
-//                 }
-//         }
-//
-//         for(std::string name : names) {
-//                 blockDestroyableList.erase(name);
-//         }
-//
-// }
-
 void CollisionManager::verifyBlocksDestroyable(GameObject* g1, std::unordered_map<std::string, GameObject*> * listBlocks, int range){
         std::string nameUp, nameDown, nameRight, nameLeft;
         int initialX = g1->getPositionX(), initialY = g1->getPositionY();

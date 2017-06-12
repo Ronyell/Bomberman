@@ -68,7 +68,6 @@ void Player::verifyBlocksDestroyable(std::unordered_map<std::string, GameObject*
 
             if(key >= 0){
                 bomberman1->setUnusedBomb(bomberman1->getUnusedBomb() + 1);
-                WARN("SAIU" << bomberman1->getUnusedBomb())
             }
         }
 }
