@@ -25,46 +25,99 @@ bool CollisionManager::verifyWay(GameObject* g1, GameObject* g2){
         bool isWay = false;
         std::unordered_map<std::string, GameObject*>::iterator search;
         //g1 is block  and g2 is bomb
-        if((int)g1->getPositionY() == (int)g2->getPositionY()){
-            if((int)g1->getPositionX() >= (int)g2->getPositionX()){
-                for(int i = g1->getPositionX(); i >= g2->getPositionX() ; i -= g1->getWidth()){
-                    search = blockUndestroyableList.find("block_undestroyable" + std::to_string(i) + " " + std::to_string((int)g1->getPositionY()));
-                    if(search != blockUndestroyableList.end()){
-                        isWay = true;
-                        break;
-                    }
+        if((int)g1->getPositionY() == (int)g2->getPositionY()) {
+                if((int)g1->getPositionX() >= (int)g2->getPositionX()) {
+                        for(int i = g1->getPositionX(); i >= g2->getPositionX(); i -= g1->getWidth()) {
+                                search = blockUndestroyableList.find("block_undestroyable" + std::to_string(i) + " " + std::to_string((int)g1->getPositionY()));
+                                if(search != blockUndestroyableList.end()) {
+                                        isWay = true;
+                                        break;
+                                }
+                        }
+                }else{
+                        for(int i = g1->getPositionX(); i <= g2->getPositionX(); i += g1->getWidth()) {
+                                search = blockUndestroyableList.find("block_undestroyable" + std::to_string(i) + " " + std::to_string((int)g1->getPositionY()));
+                                if(search != blockUndestroyableList.end()) {
+                                        isWay = true;
+                                        break;
+                                }
+                        }
                 }
-            }else{
-                for(int i = g1->getPositionX(); i <= g2->getPositionX() ; i += g1->getWidth()){
-                    search = blockUndestroyableList.find("block_undestroyable" + std::to_string(i) + " " + std::to_string((int)g1->getPositionY()));
-                    if(search != blockUndestroyableList.end()){
-                        isWay = true;
-                        break;
-                    }
-                }
-            }
         }else{
-            if(g1->getPositionY() >= g2->getPositionY()){
-                for(int i = g1->getPositionY(); i >= g2->getPositionY() ; i -= g1->getHeight()){
-                    search = blockUndestroyableList.find("block_undestroyable" + std::to_string((int)g1->getPositionX()) + " " + std::to_string(i));
-                    if(search != blockUndestroyableList.end()){
-                        isWay = true;
-                        break;
-                    }
+                if(g1->getPositionY() >= g2->getPositionY()) {
+                        for(int i = g1->getPositionY(); i >= g2->getPositionY(); i -= g1->getHeight()) {
+                                search = blockUndestroyableList.find("block_undestroyable" + std::to_string((int)g1->getPositionX()) + " " + std::to_string(i));
+                                if(search != blockUndestroyableList.end()) {
+                                        isWay = true;
+                                        break;
+                                }
+                        }
+                }else{
+                        for(int i = g1->getPositionY(); i <= g2->getPositionY(); i += g1->getHeight()) {
+                                search = blockUndestroyableList.find("block_undestroyable" + std::to_string((int)g1->getPositionX()) + " " + std::to_string(i));
+                                if(search != blockUndestroyableList.end()) {
+                                        isWay = true;
+                                        break;
+                                }
+                        }
                 }
-            }else{
-                for(int i = g1->getPositionY(); i <= g2->getPositionY() ; i += g1->getHeight()){
-                    search = blockUndestroyableList.find("block_undestroyable" + std::to_string((int)g1->getPositionX()) + " " + std::to_string(i));
-                    if(search != blockUndestroyableList.end()){
-                        isWay = true;
-                        break;
-                    }
-                }
-            }
         }
         return !isWay;
 }
 
+bool CollisionManager::verifyWayAllBlocks(GameObject* g1, GameObject* g2){
+        bool isWay = false;
+        std::unordered_map<std::string, GameObject*>::iterator search;
+        //g1 is bomb  and g2 is player
+        if((int)g1->getPositionX() >= (int)g2->getPositionX()) {
+                for(int i = g1->getPositionX(); i >= g2->getPositionX(); i -= g1->getWidth()) {
+                        search = blockUndestroyableList.find("block_undestroyable" + std::to_string(i) + " " + std::to_string((int)g1->getPositionY()));
+                        if(search != blockUndestroyableList.end()) {
+                                return true;
+                        }
+                        search = blockDestroyableList.find("block_destroyable" + std::to_string(i) + " " + std::to_string((int)g1->getPositionY()));
+                        if(search != blockDestroyableList.end()) {
+                                return true;
+                        }
+                }
+        }else{
+                for(int i = g1->getPositionX(); i <= g2->getPositionX(); i += g1->getWidth()) {
+                        search = blockUndestroyableList.find("block_undestroyable" + std::to_string(i) + " " + std::to_string((int)g1->getPositionY()));
+                        if(search != blockUndestroyableList.end()) {
+                                return true;
+                        }
+                        search = blockDestroyableList.find("block_destroyable" + std::to_string(i) + " " + std::to_string((int)g1->getPositionY()));
+                        if(search != blockDestroyableList.end()) {
+                                return true;
+                        }
+                }
+        }
+
+        if(g1->getPositionY() >= g2->getPositionY()) {
+                for(int i = g1->getPositionY(); i >= g2->getPositionY(); i -= g1->getHeight()) {
+                        search = blockUndestroyableList.find("block_undestroyable" + std::to_string((int)g1->getPositionX()) + " " + std::to_string(i));
+                        if(search != blockUndestroyableList.end()) {
+                                return true;
+                        }
+                        search = blockDestroyableList.find("block_destroyable" + std::to_string((int)g1->getPositionX()) + " " + std::to_string(i));
+                        if(search != blockDestroyableList.end()) {
+                                return true;
+                        }
+                }
+        }else{
+                for(int i = g1->getPositionY(); i <= g2->getPositionY(); i += g1->getHeight()) {
+                        search = blockUndestroyableList.find("block_undestroyable" + std::to_string((int)g1->getPositionX()) + " " + std::to_string(i));
+                        if(search != blockUndestroyableList.end()) {
+                                return true;
+                        }
+                        search = blockDestroyableList.find("block_destroyable" + std::to_string((int)g1->getPositionX()) + " " + std::to_string(i));
+                        if(search != blockDestroyableList.end()) {
+                                return true;
+                        }
+                }
+        }
+        return false;
+}
 
 void CollisionManager::verifyBlocksDestroyable(GameObject* g1, std::unordered_map<std::string, GameObject*> * listBlocks, int range){
         std::string nameUp, nameDown, nameRight, nameLeft;
@@ -77,29 +130,29 @@ void CollisionManager::verifyBlocksDestroyable(GameObject* g1, std::unordered_ma
         for(int i = 1; i <= range * 2 + 1; i++) {
                 for(std::pair<std::string, GameObject *>  destroyable : *listBlocks) {
                         if(verifyCollision(destroyable.second, g1)) {
-                            if(i <= range){
-                                if (!xUp){
-                                    distanceMinUp = abs(initialX - destroyable.second->getPositionX());
-                                    nameUp = destroyable.first;
-                                    xUp = true;
+                                if(i <= range) {
+                                        if (!xUp) {
+                                                distanceMinUp = abs(initialX - destroyable.second->getPositionX());
+                                                nameUp = destroyable.first;
+                                                xUp = true;
+                                        }else{
+                                                if(distanceMinUp > abs(initialX - destroyable.second->getPositionX())) {
+                                                        distanceMinUp = abs(initialX - destroyable.second->getPositionX());
+                                                        nameUp = destroyable.first;
+                                                }
+                                        }
                                 }else{
-                                    if(distanceMinUp > abs(initialX - destroyable.second->getPositionX())){
-                                        distanceMinUp = abs(initialX - destroyable.second->getPositionX());
-                                        nameUp = destroyable.first;
-                                    }
+                                        if (!xDown) {
+                                                distanceMinDown = abs(initialX - destroyable.second->getPositionX());
+                                                nameDown = destroyable.first;
+                                                xDown = true;
+                                        }else{
+                                                if(distanceMinDown > abs(initialX - destroyable.second->getPositionX())) {
+                                                        distanceMinDown = abs(initialX - destroyable.second->getPositionX());
+                                                        nameDown = destroyable.first;
+                                                }
+                                        }
                                 }
-                            }else{
-                                if (!xDown){
-                                    distanceMinDown = abs(initialX - destroyable.second->getPositionX());
-                                    nameDown = destroyable.first;
-                                    xDown = true;
-                                }else{
-                                    if(distanceMinDown > abs(initialX - destroyable.second->getPositionX())){
-                                        distanceMinDown = abs(initialX - destroyable.second->getPositionX());
-                                        nameDown = destroyable.first;
-                                    }
-                                }
-                            }
                         }
                 }
                 g1->setPositionX(g1->getPositionX() + g1->getWidth());
@@ -111,29 +164,29 @@ void CollisionManager::verifyBlocksDestroyable(GameObject* g1, std::unordered_ma
         for(int i = 1; i <= range * 2 + 1; i++) {
                 for(std::pair<std::string, GameObject *>  destroyable : *listBlocks) {
                         if(verifyCollision(destroyable.second, g1)) {
-                            if(i <= range){
-                                if (!xLeft){
-                                    distanceMinLeft = abs(initialY - destroyable.second->getPositionY());
-                                    nameLeft = destroyable.first;
-                                    xLeft = true;
+                                if(i <= range) {
+                                        if (!xLeft) {
+                                                distanceMinLeft = abs(initialY - destroyable.second->getPositionY());
+                                                nameLeft = destroyable.first;
+                                                xLeft = true;
+                                        }else{
+                                                if(distanceMinLeft > abs(initialY - destroyable.second->getPositionY())) {
+                                                        distanceMinLeft = abs(initialY - destroyable.second->getPositionY());
+                                                        nameLeft = destroyable.first;
+                                                }
+                                        }
                                 }else{
-                                    if(distanceMinLeft > abs(initialY - destroyable.second->getPositionY())){
-                                        distanceMinLeft = abs(initialY - destroyable.second->getPositionY());
-                                        nameLeft = destroyable.first;
-                                    }
+                                        if (!xRight) {
+                                                distanceMinRight = abs(initialY - destroyable.second->getPositionY());
+                                                nameRight = destroyable.first;
+                                                xRight = true;
+                                        }else{
+                                                if(distanceMinRight > abs(initialY - destroyable.second->getPositionY())) {
+                                                        distanceMinRight = abs(initialY - destroyable.second->getPositionY());
+                                                        nameRight = destroyable.first;
+                                                }
+                                        }
                                 }
-                            }else{
-                                if (!xRight){
-                                    distanceMinRight = abs(initialY - destroyable.second->getPositionY());
-                                    nameRight = destroyable.first;
-                                    xRight = true;
-                                }else{
-                                    if(distanceMinRight > abs(initialY - destroyable.second->getPositionY())){
-                                        distanceMinRight = abs(initialY - destroyable.second->getPositionY());
-                                        nameRight = destroyable.first;
-                                    }
-                                }
-                            }
                         }
                 }
                 g1->setPositionY(g1->getPositionY() + g1->getHeight());
@@ -142,28 +195,28 @@ void CollisionManager::verifyBlocksDestroyable(GameObject* g1, std::unordered_ma
         g1->setPositionY(initialY);
 
         if(xUp) {
-                if(verifyWay((*listBlocks)[nameUp], g1)){
-                    (*listBlocks)[nameUp]->setEnabled(false);
-                    blockDestroyableList.erase(nameUp);
+                if(verifyWay((*listBlocks)[nameUp], g1)) {
+                        (*listBlocks)[nameUp]->setEnabled(false);
+                        blockDestroyableList.erase(nameUp);
                 }
         }
         if(xDown) {
-            if(verifyWay((*listBlocks)[nameDown], g1)){
-                (*listBlocks)[nameDown]->setEnabled(false);
-                blockDestroyableList.erase(nameDown);
-            }
+                if(verifyWay((*listBlocks)[nameDown], g1)) {
+                        (*listBlocks)[nameDown]->setEnabled(false);
+                        blockDestroyableList.erase(nameDown);
+                }
         }
         if(xRight) {
-            if(verifyWay((*listBlocks)[nameRight], g1)){
-                (*listBlocks)[nameRight]->setEnabled(false);
-                blockDestroyableList.erase(nameRight);
-            }
+                if(verifyWay((*listBlocks)[nameRight], g1)) {
+                        (*listBlocks)[nameRight]->setEnabled(false);
+                        blockDestroyableList.erase(nameRight);
+                }
         }
         if(xLeft) {
-            if(verifyWay((*listBlocks)[nameLeft], g1)){
-                (*listBlocks)[nameLeft]->setEnabled(false);
-                blockDestroyableList.erase(nameLeft);
-            }
+                if(verifyWay((*listBlocks)[nameLeft], g1)) {
+                        (*listBlocks)[nameLeft]->setEnabled(false);
+                        blockDestroyableList.erase(nameLeft);
+                }
         }
 }
 
@@ -240,6 +293,30 @@ bool CollisionManager::verifyCollision( GameObject* g1, GameObject* g2){
         //If none of the sides from A are outside B
         return true;
 }
+
+bool CollisionManager::verifyCollisionWithPlayer(GameObject* bomberman, GameObject * gameObject, int range){
+        GameObject bomb = (GameObject)*gameObject;
+        bool xUp = false, xDown = false, xRight = false, xLeft = false;
+
+        double auxWidth = bomb.getWidth();
+        double auxX = bomb.getPositionX();
+        bomb.setWidth(auxWidth+range*40);
+        xLeft = CollisionManager::instance.verifyCollision(&bomb, bomberman, 0, 20);
+
+        bomb.setPositionX(auxX-range*40);
+        xRight = CollisionManager::instance.verifyCollision(&bomb, bomberman, 0, 20);
+        bomb.setWidth(auxWidth);
+        bomb.setPositionX(auxX);
+        double auxHeight = bomb.getHeight();
+        double auxY = bomb.getPositionY();
+        bomb.setHeight(auxHeight+range*40);
+        xDown = CollisionManager::instance.verifyCollision(&bomb, bomberman, 0, 20);
+        bomb.setPositionY(auxY-range*40);
+        xUp = CollisionManager::instance.verifyCollision(&bomb, bomberman, 0, 20);
+
+        return (xUp || xDown || xRight || xLeft) && !verifyWayAllBlocks(gameObject, bomberman);
+}
+
 
 bool CollisionManager::verifyCollision( GameObject* g1, GameObject* g2,int x, int y){
         //The sides of the rectangles

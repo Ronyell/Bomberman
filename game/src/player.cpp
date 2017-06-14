@@ -7,17 +7,23 @@ Player::Player(std::pair<int, int> player1position, std::pair<int, int> player2p
         bomberman2 = new Bomberman("assets/sprites/bomberman1.png", player1position.first, player1position.second, 31, 48);
 
         bomberman1->update(0);
-        bomberman2->update(0);
         bomberman1->setQuantityBomb(3);
         bomberman1->setUnusedBomb(3);
+
+        bomberman2->update(0);
+        bomberman2->setQuantityBomb(3);
+        bomberman2->setUnusedBomb(3);
+
         keyBomb = 0;
+        firstDead = false;
+        secondDead = false;
 }
 
 Player::~Player(){
 }
 
 void Player::update(double timeElapsed){
-        if(InputManager::instance.isKeyReleased(InputManager::KEY_PRESS_SPACE)) {
+        if(InputManager::instance.isKeyTriggered(InputManager::KEY_PRESS_SPACE)) {
                 if(bomberman1->getUnusedBomb()){
                     int xBomb = (((int)bomberman1->getPositionX() % 40) <= 20) ? bomberman1->getPositionX() - (int)bomberman1->getPositionX() % 40 : bomberman1->getPositionX() + 40 -(int)bomberman1->getPositionX() % 40;
                     int yBomb = (((int)bomberman1->getPositionY() % 40) <= 8) ? bomberman1->getPositionY() - (int)bomberman1->getPositionY() % 40 : bomberman1->getPositionY() + 40 -(int)bomberman1->getPositionY() % 40;
@@ -26,9 +32,22 @@ void Player::update(double timeElapsed){
                     bombList["Bomb1 "+std::to_string(keyBomb)] = bomb;
                     keyBomb++;
                     bomberman1->setUnusedBomb(bomberman1->getUnusedBomb() - 1);
-                    WARN(bomberman1->getUnusedBomb())
                 }
         }
+
+        // if(InputManager::instance.isKeyTriggered(InputManager::KEY_PRESS)) {
+        //         if(bomberman1->getUnusedBomb()){
+        //             int xBomb = (((int)bomberman1->getPositionX() % 40) <= 20) ? bomberman1->getPositionX() - (int)bomberman1->getPositionX() % 40 : bomberman1->getPositionX() + 40 -(int)bomberman1->getPositionX() % 40;
+        //             int yBomb = (((int)bomberman1->getPositionY() % 40) <= 8) ? bomberman1->getPositionY() - (int)bomberman1->getPositionY() % 40 : bomberman1->getPositionY() + 40 -(int)bomberman1->getPositionY() % 40;
+        //
+        //             Bomb * bomb = new Bomb("assets/sprites/bomb2.png",xBomb,yBomb,40,40);
+        //             bombList["Bomb1 "+std::to_string(keyBomb)] = bomb;
+        //             keyBomb++;
+        //             bomberman1->setUnusedBomb(bomberman1->getUnusedBomb() - 1);
+        //         }
+        // }
+
+
         for(std::pair<std::string, Bomb *> bomb: bombList){
                 bomb.second->update(timeElapsed);
 
@@ -56,6 +75,8 @@ void Player::verifyBlocksDestroyable(std::unordered_map<std::string, GameObject*
         std::vector<std::string> names;
         for(std::pair<std::string, Bomb *> bomb: bombList){
                 if(!bomb.second->getActiveBomb()) {
+                        firstDead = firstDead || CollisionManager::instance.verifyCollisionWithPlayer(bomberman1, bomb.second, bomb.second->getRange());
+                        secondDead = secondDead || CollisionManager::instance.verifyCollisionWithPlayer(bomberman2, bomb.second, bomb.second->getRange());
                         CollisionManager::instance.verifyBlocksDestroyable(bomb.second, blockDestroyableList, bomb.second->getRange());
                         CollisionManager::instance.removeBomb(bomb.first);
                         names.push_back(bomb.first);
@@ -70,4 +91,12 @@ void Player::verifyBlocksDestroyable(std::unordered_map<std::string, GameObject*
                 bomberman1->setUnusedBomb(bomberman1->getUnusedBomb() + 1);
             }
         }
+}
+
+bool Player::firstIsDead(){
+    return firstDead;
+}
+
+bool Player::secondIsDead(){
+    return secondDead;
 }

@@ -17,9 +17,15 @@ Bomberman::Bomberman(std::string objectName, double positionX, double positionY,
         animator->addAction("idle_left",28,28);
         animator->addAction("idle_up",11,11);
         animator->addAction("idle_down",7,7);
+        animator->addAction("idle",20,24);
+
+
+        animator->setTotalTime(1.2);
+        animator->setInterval("idle_down");
 
         idleAnimationNumber = 5;
         blockMovement = false;
+        stepTime = 0;
 }
 
 Bomberman::~Bomberman(){
@@ -27,7 +33,6 @@ Bomberman::~Bomberman(){
 
 void Bomberman::update(double timeElapsed){
         // To Do: Use Time Elapsed in inc.
-        animator->setTotalTime(0.4);
         auto incY = 0.10*timeElapsed;
         auto incX = 0.10*timeElapsed;
 
@@ -37,6 +42,7 @@ void Bomberman::update(double timeElapsed){
         }
 
         if(incX == 0 && incY == 0) {
+                stepTime += timeElapsed;
                 if(animator->getInterval().first == "right") {
                         animator->setInterval("idle_right");
                 }else if (animator->getInterval().first == "left") {
@@ -46,6 +52,15 @@ void Bomberman::update(double timeElapsed){
                 }else if (animator->getInterval().first == "down") {
                         animator->setInterval("idle_down");
                 }
+                if(stepTime > 2000){
+                    animator->setTotalTime(1.0);
+                    animator->setInterval("idle");
+                }
+        }else{
+            stepTime = 0;
+        }
+        if(animator->getInterval().first != "idle"){
+            animator->setTotalTime(0.3);
         }
         specialAction();
         animator->update();
@@ -98,7 +113,7 @@ void Bomberman::walkInY(double & incY, double incX){
 }
 
 bool Bomberman::specialAction(){
-        if(InputManager::instance.isKeyPressed(InputManager::KEY_PRESS_SPACE)) {
+        if(InputManager::instance.isKeyTriggered(InputManager::KEY_PRESS_SPACE)) {
                 return true;
         }
 

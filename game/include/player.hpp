@@ -15,14 +15,14 @@ public:
     void update(double timeElapsed);
     void draw();
     void verifyBlocksDestroyable(std::unordered_map<std::string, GameObject*> * blockDestroyableList);
-    // void setBomb(Bomb * newBomb);
-    // Bomb * getBomb();
-
-    // bool isDead();
+    bool firstIsDead();
+    bool secondIsDead();
 
 private:
     Bomberman * bomberman1, * bomberman2;
     int keyBomb;
+    bool firstDead;
+    bool secondDead;
     std::unordered_map<std::string, Bomb*> bombList;
 };
 #endif

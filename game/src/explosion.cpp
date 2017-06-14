@@ -8,10 +8,16 @@ Explosion::Explosion(std::string objectName, double positionX, double positionY,
 
 
         animatorCenter = new Animation(objectName, 7, 4, 0.5);
+
         animatorLeft = new Animation(objectName, 7, 4, 0.5);
         animatorRight = new Animation(objectName, 7, 4, 0.5);
         animatorUp = new Animation(objectName, 7, 4, 0.5);
         animatorDown = new Animation(objectName, 7, 4, 0.5);
+
+        animatorLeftMiddle = new Animation(objectName, 7, 4, 0.5);
+        animatorRightMiddle = new Animation(objectName, 7, 4, 0.5);
+        animatorUpMiddle = new Animation(objectName, 7, 4, 0.5);
+        animatorDownMiddle = new Animation(objectName, 7, 4, 0.5);
 
 
         animatorCenter->addAction("explode",0,3);
@@ -20,11 +26,22 @@ Explosion::Explosion(std::string objectName, double positionX, double positionY,
         animatorUp->addAction("explode",24,27);
         animatorDown->addAction("explode",20,23);
 
+        // animatorLeftMiddle->addAction("explode",4,7);
+        // animatorRightMiddle->addAction("explode",4,7);
+        // animatorUpMiddle->addAction("explode",8,11);
+        // animatorDownMiddle->addAction("explode",8,11);
+        //
+        // animatorLeftMiddle->setInterval("explode");
+        // animatorRightMiddle->setInterval("explode");
+        // animatorUpMiddle->setInterval("explode");
+        // animatorDownMiddle->setInterval("explode");
+
         animatorCenter->setInterval("explode");
         animatorLeft->setInterval("explode");
         animatorRight->setInterval("explode");
         animatorUp->setInterval("explode");
         animatorDown->setInterval("explode");
+
 
         activeExplosion = false;
 }
@@ -37,6 +54,10 @@ void Explosion::update(double timeElapsed){
         specialAction();
         if(activeExplosion) {
                 animatorCenter->update();
+                // animatorLeftMiddle->update();
+                // animatorRightMiddle->update();
+                // animatorUpMiddle->update();
+                // animatorDownMiddle->update();
                 animatorLeft->update();
                 animatorRight->update();
                 animatorUp->update();
@@ -75,6 +96,7 @@ void Explosion::draw(){
                         }else{
                                 down = true;
                         }
+
                 }
         }
 }

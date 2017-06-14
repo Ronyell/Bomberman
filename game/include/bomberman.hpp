@@ -32,6 +32,7 @@ protected:
     bool blockMovement;
     int quantityBomb;
     int unusedBomb;
+    double stepTime;
 };
 
 #endif

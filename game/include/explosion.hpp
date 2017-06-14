@@ -24,6 +24,7 @@ public:
 protected:
     void specialAction();
     Animation *animatorRight, *animatorLeft, *animatorUp, *animatorDown, *animatorCenter;
+    Animation *animatorRightMiddle, *animatorLeftMiddle, *animatorUpMiddle, *animatorDownMiddle;
     bool activeExplosion;
     int range;
 };

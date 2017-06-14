@@ -21,6 +21,8 @@ public:
     void removeBomb(std::string bombName);
     void verifyBlocksDestroyable(GameObject* g1);
     bool verifyExplosion(int x, int y, GameObject g1);
+    bool verifyCollisionWithPlayer(GameObject* bomberman, GameObject * bomb, int range);
+    bool verifyWayAllBlocks(GameObject* g1, GameObject* g2);
     void verifyBlocksDestroyable(GameObject* g1, std::unordered_map<std::string, GameObject*> * listBlocks, int range);
     void resetLists();
     static CollisionManager instance;
