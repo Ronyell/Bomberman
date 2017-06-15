@@ -23,7 +23,7 @@ Player::~Player(){
 }
 
 void Player::update(double timeElapsed){
-        if(InputManager::instance.isKeyTriggered(InputManager::KEY_PRESS_SPACE)) {
+        if(InputManager::instance.isKeyTriggered(InputManager::KEY_PRESS_SPACE) && bomberman1->isEnabled()) {
                 if(bomberman1->getUnusedBomb()){
                     int xBomb = (((int)bomberman1->getPositionX() % 40) <= 20) ? bomberman1->getPositionX() - (int)bomberman1->getPositionX() % 40 : bomberman1->getPositionX() + 40 -(int)bomberman1->getPositionX() % 40;
                     int yBomb = (((int)bomberman1->getPositionY() % 40) <= 8) ? bomberman1->getPositionY() - (int)bomberman1->getPositionY() % 40 : bomberman1->getPositionY() + 40 -(int)bomberman1->getPositionY() % 40;
@@ -35,7 +35,7 @@ void Player::update(double timeElapsed){
                 }
         }
 
-        if(InputManager::instance.isKeyTriggered(InputManager::KEY_PRESS_P)) {
+        if(InputManager::instance.isKeyTriggered(InputManager::KEY_PRESS_P) && bomberman2->isEnabled()) {
                 if(bomberman1->getUnusedBomb()){
                     int xBomb = (((int)bomberman2->getPositionX() % 40) <= 20) ? bomberman2->getPositionX() - (int)bomberman2->getPositionX() % 40 : bomberman2->getPositionX() + 40 -(int)bomberman2->getPositionX() % 40;
                     int yBomb = (((int)bomberman2->getPositionY() % 40) <= 8) ? bomberman2->getPositionY() - (int)bomberman2->getPositionY() % 40 : bomberman2->getPositionY() + 40 -(int)bomberman2->getPositionY() % 40;
@@ -66,6 +66,10 @@ void Player::update(double timeElapsed){
                 if(CollisionManager::instance.verifyCollision(bomb.second, bomberman2, 0, 30)) {
                         CollisionManager::instance.removeBomb(bomb.first);
                 }
+        }
+
+        if(firstDead || secondDead){
+            finishGame();
         }
 
         bomberman1->update(timeElapsed);
@@ -123,6 +127,20 @@ void Player::verifyBlocksDestroyable(std::unordered_map<std::string, GameObject*
                 bomberman2->setUnusedBomb(bomberman1->getUnusedBomb() + 1);
             }
         }
+
+}
+
+void Player::finishGame(){
+    if(firstDead && secondDead){
+        bomberman1->setWinOrLose(false);
+        bomberman2->setWinOrLose(false);
+    }else if(firstDead){
+        bomberman1->setWinOrLose(false);
+        bomberman2->setWinOrLose(true);
+    }else if(secondDead){
+        bomberman1->setWinOrLose(true);
+        bomberman2->setWinOrLose(false);
+    }
 
 }
 

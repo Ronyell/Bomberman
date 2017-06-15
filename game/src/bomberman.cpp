@@ -17,6 +17,8 @@ Bomberman::Bomberman(std::string objectName, double positionX, double positionY,
         animator->addAction("idle_up",11,11);
         animator->addAction("idle_down",7,7);
         animator->addAction("idle",20,24);
+        animator->addAction("win",15,19);
+
 
 
         animator->setTotalTime(1.2);
@@ -61,4 +63,16 @@ void Bomberman::setUnusedBomb(int numBomb){
 
 int Bomberman::getUnusedBomb(){
     return unusedBomb;
+}
+
+void Bomberman::setWinOrLose(bool isWin){
+    animator->setTotalTime(0.8);
+    
+    if(isWin){
+        animator->setInterval("win");
+    }
+    else{
+        animator->setInterval("idle");
+    }
+    setEnabled(false);
 }

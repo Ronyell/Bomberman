@@ -18,6 +18,7 @@ public:
     void verifyBlocksDestroyable(std::unordered_map<std::string, GameObject*> * blockDestroyableList);
     bool firstIsDead();
     bool secondIsDead();
+    void finishGame();
 
 private:
     FirstBomberman * bomberman1;

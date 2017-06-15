@@ -14,7 +14,7 @@ void SecondBomberman::update(double timeElapsed){
         auto incY = 0.10*timeElapsed;
         auto incX = 0.10*timeElapsed;
 
-        if(!blockMovement) {
+        if(!blockMovement && isEnabled()) {
                 walkInX(incX);
                 walkInY(incY, incX);
         }

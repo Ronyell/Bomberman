@@ -21,6 +21,7 @@ public:
     void setQuantityBomb(int numBomb);
     int getQuantityBomb();
     void setUnusedBomb(int numBomb);
+    void setWinOrLose(bool isWin);
     int getUnusedBomb();
     Animation * getAnimation();
 protected:

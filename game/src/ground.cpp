@@ -6,15 +6,14 @@ Ground::Ground(std::string objectName, double positionX, double positionY,
                                                                          positionX,
                                                                          positionY,
                                                                          width, height){
-animator = new Animation(objectName, 1, 1, 0.5);
+sprite = new Sprite(objectName);
 }
 
 Ground::~Ground(){}
 void Ground::update(double timeElapsed){
     timeElapsed = timeElapsed;
-    animator->update();
 }
 
 void Ground::draw(){
-    animator->draw(getPositionX(), getPositionY());
+    sprite->draw(getPositionX(), getPositionY());
 }

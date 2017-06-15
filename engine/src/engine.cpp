@@ -10,7 +10,7 @@
 
 namespace engine{
 
-    const std::string GAME_NAME = "Default";
+    const std::string GAME_NAME = "Bomberman";
     const std::pair <int, int> WINDOW_SIZE (920, 600);
 
     SceneManager* sceneManager;

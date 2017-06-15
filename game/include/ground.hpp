@@ -2,7 +2,7 @@
 #define GROUND_HPP
 
 #include "engine.hpp"
-#include "animation.hpp"
+#include "sprite.hpp"
 #include "game_object.hpp"
 
 using namespace engine;
@@ -14,8 +14,8 @@ public:
     void update(double timeElapsed);
     void draw();
     void init();
-    Animation * getAnimation();
+    Sprite * getSprite();
 private:
-    Animation* animator;
+    Sprite* sprite;
 };
 #endif

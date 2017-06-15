@@ -12,6 +12,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
+
 
 using namespace engine;
 
@@ -22,7 +24,15 @@ GameScene::~GameScene(){
 }
 
 void GameScene::draw(){
-        for(std::pair<std::string, GameObject *> gameObject : blockUndestroyableList) {
+
+        for(GameObject * ground : groundList){
+            (*ground).draw();
+        }
+
+        std::vector<std::pair<std::string, GameObject*>> listBlocksUndestroyable(blockUndestroyableList.begin(), blockUndestroyableList.end());
+        std::sort(listBlocksUndestroyable.begin(), listBlocksUndestroyable.end(),[](std::pair<std::string, GameObject*> const lhs, std::pair<std::string, GameObject*> const rhs){ return lhs.second->getPositionY() < rhs.second->getPositionY(); });
+
+        for(std::pair<std::string, GameObject *> gameObject : listBlocksUndestroyable) {
                 (*gameObject.second).draw();
         }
         for(std::pair<std::string, GameObject *> gameObject : blockDestroyableList) {
@@ -73,6 +83,12 @@ void GameScene::load(){
 
         player = (new Player(player1position, player2position));
 
+        for(int y = 0; y < 600; y+=128){
+            for(int x = 0; x < 900; x+=128){
+                groundList.push_back(new Ground("assets/sprites/cenary/grass.png", x, y, 128, 128));
+            }
+        }
+
         for(std::pair<std::string, GameObject *>  destroyable : blockDestroyableList) {
                 CollisionManager::instance.addBlockDestroyable(destroyable.first, destroyable.second);
         }
@@ -117,7 +133,7 @@ void GameScene::loadLevelDesign(){
 
                 while(numberObject >> indexObject) {
                         if(indexObject == 1) {
-                                blockUndestroyableList["block_undestroyable" + std::to_string(x) + " " + std::to_string(y)] = (new BlockUndestroyable("assets/sprites/cenary/block_undestroyable.png",x,y,40,40));
+                                blockUndestroyableList["block_undestroyable" + std::to_string(x) + " " + std::to_string(y)] = (new BlockUndestroyable("assets/sprites/cenary/barrel.png",x,y,40,40));
                         }else if(indexObject == 2) {
                                 blockDestroyableList["block_destroyable" + std::to_string(x) + " " + std::to_string(y)] = (new BlockDestroyable("assets/sprites/cenary/block_destroyable.png",x,y,40,40));
                         }

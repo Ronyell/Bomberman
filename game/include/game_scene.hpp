@@ -8,6 +8,7 @@
 #include "game_object.hpp"
 #include "block_undestroyable.hpp"
 #include "block_destroyable.hpp"
+#include "ground.hpp"
 
 #include <vector>
 
@@ -27,6 +28,7 @@ private:
     std::unordered_map<std::string, GameObject*> blockUndestroyableList;
     std::unordered_map<std::string, GameObject*> blockDestroyableList;
     std::vector<std::pair<int, GameObject*>> texts;
+    std::vector<GameObject*> groundList;
 
     Player * player;
 

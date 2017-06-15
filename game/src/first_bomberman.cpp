@@ -14,7 +14,7 @@ void FirstBomberman::update(double timeElapsed){
         auto incY = 0.10*timeElapsed;
         auto incX = 0.10*timeElapsed;
 
-        if(!blockMovement) {
+        if(!blockMovement && isEnabled()) {
                 walkInX(incX);
                 walkInY(incY, incX);
         }
@@ -37,7 +37,7 @@ void FirstBomberman::update(double timeElapsed){
         }else{
             stepTime = 0;
         }
-        if(animator->getInterval().first != "idle"){
+        if(animator->getInterval().first != "idle" && animator->getInterval().first != "win"){
             animator->setTotalTime(0.3);
         }
         specialAction();
