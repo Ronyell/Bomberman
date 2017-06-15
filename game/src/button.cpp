@@ -6,7 +6,7 @@ Button::Button(std::string objectName, double positionX, double positionY,
                                                                          positionY,
                                                                          width, height){
 
-    text = new Text(title, objectName, sizeTitle, true, new Color(100,100,100,0), new Color(0,0,0,0));
+    text = new Text(title, objectName, sizeTitle, true, new Color(100,100,100,0), new Color(255,255,255,0));
 }
 
 Button::~Button(){}

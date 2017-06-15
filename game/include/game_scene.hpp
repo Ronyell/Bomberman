@@ -29,6 +29,7 @@ private:
     std::unordered_map<std::string, GameObject*> blockDestroyableList;
     std::vector<std::pair<int, GameObject*>> texts;
     std::vector<GameObject*> groundList;
+    std::vector<GameObject*> treeList;
 
     Player * player;
 

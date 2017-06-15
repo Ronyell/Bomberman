@@ -29,12 +29,18 @@ void GameScene::draw(){
             (*ground).draw();
         }
 
+
+        for(GameObject * gameObject: treeList){
+                (*gameObject).draw();
+        }
+
         std::vector<std::pair<std::string, GameObject*>> listBlocksUndestroyable(blockUndestroyableList.begin(), blockUndestroyableList.end());
         std::sort(listBlocksUndestroyable.begin(), listBlocksUndestroyable.end(),[](std::pair<std::string, GameObject*> const lhs, std::pair<std::string, GameObject*> const rhs){ return lhs.second->getPositionY() < rhs.second->getPositionY(); });
 
         for(std::pair<std::string, GameObject *> gameObject : listBlocksUndestroyable) {
                 (*gameObject.second).draw();
         }
+
         for(std::pair<std::string, GameObject *> gameObject : blockDestroyableList) {
                 (*gameObject.second).draw();
         }
@@ -87,6 +93,16 @@ void GameScene::load(){
             for(int x = 0; x < 900; x+=128){
                 groundList.push_back(new Ground("assets/sprites/cenary/grass.png", x, y, 128, 128));
             }
+        }
+
+        for(int x = -50; x <= 900; x+=50){
+            int y = 0;
+            if(x % 100 == 0){
+                y = -30;
+            }else{
+                y = -60;
+            }
+            treeList.push_back(new Ground("assets/sprites/cenary/treetop.png", x, y, 128, 128));
         }
 
         for(std::pair<std::string, GameObject *>  destroyable : blockDestroyableList) {
