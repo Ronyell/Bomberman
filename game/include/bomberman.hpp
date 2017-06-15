@@ -13,8 +13,8 @@ using namespace engine;
 class Bomberman: public GameObject{
 public:
     Bomberman(std::string objectName, double positionX, double positionY, int width, int height);
-    ~Bomberman();
-    void update(double timeElapsed);
+    virtual ~Bomberman();
+    virtual void update(double timeElapsed) = 0;
     void draw();
     void init();
     bool specialAction();
@@ -24,8 +24,8 @@ public:
     int getUnusedBomb();
     Animation * getAnimation();
 protected:
-    void walkInX(double & incX);
-    void walkInY(double & incY, double incX);
+    virtual void walkInX(double & incX) = 0;
+    virtual void walkInY(double & incY, double incX) = 0;
     Animation* animator;
     int idleAnimationNumber;
     std::string alienName;

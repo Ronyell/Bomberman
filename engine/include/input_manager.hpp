@@ -15,9 +15,11 @@ namespace engine{
             KEY_PRESS_RIGHT = SDLK_RIGHT,
             KEY_PRESS_LEFT = SDLK_LEFT,
             KEY_PRESS_SPACE = SDLK_SPACE,
-            KEY_PRESS_ONE = SDLK_1,
-            KEY_PRESS_TWO = SDLK_2,
-            KEY_PRESS_THREE = SDLK_3
+            KEY_PRESS_W = SDLK_w,
+            KEY_PRESS_A = SDLK_a,
+            KEY_PRESS_S = SDLK_s,
+            KEY_PRESS_D = SDLK_d,
+            KEY_PRESS_P = SDLK_p
         };
 
         static InputManager instance;

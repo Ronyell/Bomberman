@@ -4,9 +4,8 @@
 #include "engine.hpp"
 #include "scene.hpp"
 #include "player.hpp"
-#include "wall.hpp"
+#include "button.hpp"
 #include "game_object.hpp"
-#include "guard.hpp"
 #include "block_undestroyable.hpp"
 #include "block_destroyable.hpp"
 
@@ -27,7 +26,8 @@ public:
 private:
     std::unordered_map<std::string, GameObject*> blockUndestroyableList;
     std::unordered_map<std::string, GameObject*> blockDestroyableList;
-    // std::unordered_map<std::string, GameObject*> gameObjectsList;
+    std::vector<std::pair<int, GameObject*>> texts;
+
     Player * player;
 
 };

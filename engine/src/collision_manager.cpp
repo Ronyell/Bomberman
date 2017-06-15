@@ -66,7 +66,6 @@ bool CollisionManager::verifyWay(GameObject* g1, GameObject* g2){
 }
 
 bool CollisionManager::verifyWayAllBlocks(GameObject* g1, GameObject* g2){
-        bool isWay = false;
         std::unordered_map<std::string, GameObject*>::iterator search;
         //g1 is bomb  and g2 is player
         if((int)g1->getPositionX() >= (int)g2->getPositionX()) {
@@ -256,7 +255,7 @@ bool CollisionManager::verifyCollisionWithBlocks(GameObject* g1, int x, int y){
         }
 
         for(std::pair<std::string, GameObject *> bomb : bombList) {
-                if(verifyCollision(bomb.second, g1)) {
+                if(verifyCollision(bomb.second, g1, x, y)) {
                         return true;
                 }
         }
@@ -331,9 +330,9 @@ bool CollisionManager::verifyCollision( GameObject* g1, GameObject* g2,int x, in
 
         //Calculate the sides of rect B
         leftB = g2->getPositionX() + x;
-        rightB = leftB + g2->getWidth() - x;
+        rightB = leftB + g2->getWidth();
         topB = g2->getPositionY() + y;
-        bottomB = topB + g2->getHeight() - y;
+        bottomB = topB + g2->getHeight();
 
         //If any of the sides from A are outside of B
         if( bottomA <= topB ) { return false; }

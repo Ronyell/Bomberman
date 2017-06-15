@@ -2,7 +2,8 @@
 #define PLAYER_HPP
 
 #include "input_manager.hpp"
-#include "bomberman.hpp"
+#include "first_bomberman.hpp"
+#include "second_bomberman.hpp"
 #include "engine.hpp"
 #include "block_destroyable.hpp"
 
@@ -19,10 +20,12 @@ public:
     bool secondIsDead();
 
 private:
-    Bomberman * bomberman1, * bomberman2;
+    FirstBomberman * bomberman1;
+    SecondBomberman * bomberman2;
     int keyBomb;
     bool firstDead;
     bool secondDead;
-    std::unordered_map<std::string, Bomb*> bombList;
+    std::unordered_map<std::string, Bomb*> bombList1;
+    std::unordered_map<std::string, Bomb*> bombList2;
 };
 #endif
