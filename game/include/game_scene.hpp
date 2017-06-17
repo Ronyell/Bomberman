@@ -9,6 +9,9 @@
 #include "block_undestroyable.hpp"
 #include "block_destroyable.hpp"
 #include "ground.hpp"
+#include "color.hpp"
+#include "audio.hpp"
+
 
 #include <vector>
 
@@ -24,13 +27,18 @@ public:
     void unload();
     void loadLevelDesign();
     void excludeBlockDestroyable();
+    void selectAction();
 private:
     std::unordered_map<std::string, GameObject*> blockUndestroyableList;
     std::unordered_map<std::string, GameObject*> blockDestroyableList;
     std::vector<std::pair<int, GameObject*>> texts;
+    std::vector<std::pair<int, GameObject*>> menuList;
     std::vector<GameObject*> groundList;
     std::vector<GameObject*> treeList;
-
+    Audio * background_music;
+    Color * select;
+    Color * notSelect;
+    int selectButton;
     Player * player;
 
 };

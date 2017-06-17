@@ -19,7 +19,8 @@ namespace engine{
             KEY_PRESS_A = SDLK_a,
             KEY_PRESS_S = SDLK_s,
             KEY_PRESS_D = SDLK_d,
-            KEY_PRESS_P = SDLK_p
+            KEY_PRESS_P = SDLK_p,
+            KEY_PRESS_ENTER = SDLK_RETURN
         };
 
         static InputManager instance;
@@ -31,6 +32,7 @@ namespace engine{
         bool isKeyPressed(int iKeyCode);
         bool isKeyReleased(int iKeyCode);
         bool isSpace();
+        void setQuitRequest(bool isQuit);
 
     private:
         InputManager(): quitRequest(false){}

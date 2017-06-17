@@ -18,6 +18,9 @@
 using namespace engine;
 
 GameScene::GameScene(int id) : Scene(id){
+    select = new Color(150, 10, 10, 0);
+    notSelect = new Color(100, 100, 100, 0);
+    selectButton = 1;
 }
 
 GameScene::~GameScene(){
@@ -60,6 +63,12 @@ void GameScene::draw(){
                     }
                 }
         }
+
+        if(player->firstIsDead() || player->secondIsDead()){
+            for(auto gameObject : menuList) {
+                (gameObject.second)->draw();
+            }
+        }
 }
 
 void GameScene::update(double timeElapsed){
@@ -72,6 +81,22 @@ void GameScene::update(double timeElapsed){
         }
         player->update(timeElapsed);
         excludeBlockDestroyable();
+
+        if(player->firstIsDead() || player->secondIsDead()){
+            selectAction();
+
+            for(auto gameObject : menuList) {
+                    if(typeid(*gameObject.second) == typeid(Button)) {
+                            if(gameObject.first == selectButton) {
+                                    ((Button *)(gameObject.second))->setTextColor(select);
+                            }else{
+                                    ((Button *)(gameObject.second))->setTextColor(notSelect);
+                            }
+                    }
+
+                    (*gameObject.second).update(timeElapsed);
+            }
+        }
 }
 
 void GameScene::load(){
@@ -81,8 +106,11 @@ void GameScene::load(){
         texts.push_back(std::pair<int, GameObject*>(2,new Button("assets/fonts/font.ttf", 300, 10, 500, 500, "Player 2 Win", 50)));
         texts.push_back(std::pair<int, GameObject*>(3,new Button("assets/fonts/font.ttf", 300, 10, 500, 500, "Draw Game", 50)));
 
-        Audio background_music = Audio("assets/sounds/stage_one_music.wav", "MUSIC");
-        background_music.play(0);
+        menuList.push_back(std::pair<int, GameObject*>(1, new Button("assets/fonts/font.ttf", 10, 10, 500, 500, "Menu", 30)));
+        menuList.push_back(std::pair<int, GameObject*>(2,new Button("assets/fonts/font.ttf", 860, 10, 500, 500, "Exit", 30)));
+
+        background_music = new Audio("assets/sounds/stage_one_music.wav", "MUSIC");
+        background_music->play(0);
 
         std::pair <int, int> player1position (840, 510);
         std::pair <int, int> player2position (40, 120);
@@ -163,4 +191,35 @@ void GameScene::loadLevelDesign(){
         }
 
         levelDesign.close();
+}
+
+
+void GameScene::selectAction(){
+    if(InputManager::instance.isKeyTriggered(InputManager::KeyPress::KEY_PRESS_LEFT) || InputManager::instance.isKeyTriggered(InputManager::KeyPress::KEY_PRESS_A)) {
+            selectButton--;
+            if(selectButton <= 0) {
+                    selectButton = 2;
+            }
+    }
+    else if(InputManager::instance.isKeyTriggered(InputManager::KeyPress::KEY_PRESS_RIGHT) || InputManager::instance.isKeyTriggered(InputManager::KeyPress::KEY_PRESS_D)) {
+            selectButton++;
+            if(selectButton > 2) {
+                    selectButton = 1;
+            }
+    }
+
+    if(InputManager::instance.isKeyTriggered(InputManager::KeyPress::KEY_PRESS_ENTER) || InputManager::instance.isKeyTriggered(InputManager::KeyPress::KEY_PRESS_SPACE) || InputManager::instance.isKeyTriggered(InputManager::KeyPress::KEY_PRESS_P)) {
+            switch(selectButton) {
+            case 1:
+                    background_music->pause();
+                    getSceneManager()->loadScene(0);
+                    break;
+            case 2:
+                    InputManager::instance.setQuitRequest(true);
+                    break;
+            default:
+                    break;
+            }
+
+    }
 }

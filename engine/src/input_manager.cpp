@@ -53,3 +53,7 @@ InputManager InputManager::instance;
         }
         return false;
     }
+
+    void InputManager::setQuitRequest(bool isQuit){
+        quitRequest = isQuit;
+    }
