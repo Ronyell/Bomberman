@@ -44,7 +44,7 @@ de bombas. O cenário é composto por blocos destrutíveis, os quais a explosão
 | Seta para direita |Move o personagem para direita|
 | P |Arma a bomba|
 
-## Dependencies
+## Dependencias
 
 - CMake 3.5.1
 - SDL 2
@@ -52,17 +52,17 @@ de bombas. O cenário é composto por blocos destrutíveis, os quais a explosão
 - SDL\_ttf 2
 - SDL\_mixer 2
 
-## How to build
+## Como executar
 
 ```
-$ git clone https://github.com/IJE-Valhalla/Conspiracy.git
-$ cd Conspiracy
+$ git clone https://github.com/Ronyell/Bomberman.git
+$ cd Bomberman
 $ cmake .
 $ make
 $ ./bomberman
 ```
 
-## Authors
+## Autores
 
-### Developers
+### Desenvolvedor
 - Ronyell Henrique dos Santos (@Ronyell)
