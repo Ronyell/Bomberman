@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(conspiracy LANGUAGES CXX)
+project(bomberman LANGUAGES CXX)
 
 
 
@@ -51,9 +51,9 @@ include_directories(${GAME_INCLUDE_DIR})
 
 #### Executable ####
 
-add_executable(conspiracy ${SOURCES})
+add_executable(bomberman ${SOURCES})
 
-target_link_libraries(conspiracy
+target_link_libraries(bomberman
                       engine
 		              game
                       SDL2 SDL2_image SDL2_ttf SDL2_mixer)
@@ -63,6 +63,6 @@ target_link_libraries(conspiracy
 #### Custom Commands ####
 
 # Copy assets folder to build
-add_custom_command(TARGET conspiracy POST_BUILD
+add_custom_command(TARGET bomberman POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                    ${PROJECT_ASSETS_DIR} ${CMAKE_BINARY_DIR}/assets)
