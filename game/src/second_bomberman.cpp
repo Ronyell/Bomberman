@@ -37,7 +37,7 @@ void SecondBomberman::update(double timeElapsed){
         }else{
             stepTime = 0;
         }
-        if(animator->getInterval().first != "idle"){
+        if(animator->getInterval().first != "idle"  && animator->getInterval().first != "win"){
             animator->setTotalTime(0.3);
         }
         specialAction();
