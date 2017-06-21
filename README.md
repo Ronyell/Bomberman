@@ -15,8 +15,8 @@ Bomberman
 
 ## Características
 
-Gênero: Estratégia.
-Quantidade de jogadores: 2.
+* Gênero: Estratégia.
+* Quantidade de jogadores: 2.
 
 ## O jogo
 
@@ -44,7 +44,7 @@ de bombas. O cenário é composto por blocos destrutíveis, os quais a explosão
 | Seta para direita |Move o personagem para direita|
 | P |Arma a bomba|
 
-## Dependencias
+## Dependências
 
 - CMake 3.5.1
 - SDL 2
