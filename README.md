@@ -52,6 +52,17 @@ de bombas. O cenário é composto por blocos destrutíveis, os quais a explosão
 - SDL\_ttf 2
 - SDL\_mixer 2
 
+### Ubuntu:
+
+- sudo add-apt-repository main
+- sudo add-apt-repository universe
+- sudo add-apt-repository restricted
+- sudo add-apt-repository multiverse
+- sudo apt install libsdl2-dev
+- sudo apt-get install libsdl2-image-dev
+- sudo apt-get install libsdl2-ttf-dev
+- sudo apt-get install libsdl2-mixer-dev
+
 ## Como executar
 
 ```
